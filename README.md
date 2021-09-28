@@ -175,3 +175,45 @@ DBeaver-ni o'rnatgandan so'ng uni ochib PostgreSQL MBBT-ga bog'lanamiz:
 <img src="images/dbeaver-5.png" alt="DBeaver-5" title="DBeaver-5" style="width:90%;height:90;margin:0 auto;display:block;">
 
 ### 5-dars. Asosiy tiplar.
+
+Amaliyotga o'tishdan avval, yana ozroq nazariya bilan ishlaymiz. Chunki, ma'lumotlar bilan ishlashdan oldin, ma'lumot o'zi nima, ma'lumot tipi nima ekanligini bilishimiz kerak.
+
+Asosiy ma'lumot tiplarini bir nechta turga bo'lish mumkin:
+
+<img src="images/data-types-1.png" alt="data-types-1" title="data-types-1" style="width:100%;height:90;margin:0 auto;display:block;">
+
+<img src="images/data-types-2.png" alt="data-types-2" title="data-types-2" style="width:100%;height:90;margin:0 auto;display:block;">
+
+<img src="images/data-types-3.png" alt="data-types-3" title="data-types-3" style="width:100%;height:90;margin:0 auto;display:block;">
+
+1. **Butun tip**.
+   1. **smallint**. -32768 va 32767 oraliqdagi sonlarni yozishda ishlatiladi.
+   2. **integer**. Eng ko'p qo'llaniladigan butun tip.
+   3. **bigint**. Eng katta hajmli butun tip. Katta hajmli butun sonlarni ifodalashda ishlatiladi
+2. **Haqiqiy tip**
+   1. **decimal/numeric**. Xotirada o'zgaruvchan joyni egallaydi. Asosan pul miqdorini ifodalashda ishlatiladi. Chunki, bu tip hisob kitoblarda aniq qiymatni beradi.
+   2. **real/float4**. Ilmiy hisob kitoblarda ishlatiladi.
+   3. **double precision / float8 / float**.
+3. **Integral tip**.
+   1. **smallserial**. autoincrement bilan ishlaydi. Ya'ni har safar keyin sonni kiritganda oldingisidan birga ko'p bo'lib yoziladi.
+   2. **serial**. smallserial bilan bir xil. Farqi maksimal miqdori smallserialdan kattaroq bo'ladi.
+   3. **bigserial**. smallserial va serial bilan bir xil. Farqi maksimal miqdori smallserial va serialdan kattaroq bo'ladi.
+4. **Character** (belgilar).
+   1. **char**. aniq uzunlikdagi belgilar ketma-ketligini ifodalashda ishlatiladi. Masalan, char uzunligini 5 deb  berib unga 6 ta belgi o'rnatilsa, xatolik yuz beradi. Agar, 4 ta belgi berilsa, ortib qolgan uzunlik probellar bilan to'ldiriladi.
+   2. **varchar**. O'zgaruvchan uzunlikdagi belgilar ketma-ketligi. Masalan, agar varcharni 10 ta belgi uzunligi qilib berib unga 5 ta belgi berilsa, uning uzunligi 5 ga teng bo'ladi. Agar 10 ta belgi uzunligidagi varcharga 11 ta belgi o'rnatilsa xatolik yuz beradi (xuddi char kabi).
+   3. **text**. Katta o'lchamdagi matnlarni saqlash uchun ishlatiladi
+5. **Logical** (mantiqiy)
+   1. **Boolean / bool**. True va false qiymatni qabul qiladi.
+6. **Temporal**. Kun va vaqtni ifodalashda ishlatiladi.
+   1. **date.** M.a 4713 yildan boshlab sanani ko'rsatadi.
+   2. **time**
+   3. **timestamp**
+   4. **interval**
+   5. **timestamptz**
+7. PostgreSQL ishlatadigan boshqa tiplar:
+   1. **Arrays**
+   2. **JSON**
+   3. **XML**
+   4. **Maxsus tiplar**. M: geometrik tip
+   5. **Custom tiplar** (foydalanuvchi o'zi uchun yaratadigan tip)
+   6. **NULL**. Ma'lumot mavjud emasligini bildiruvchi tip.
