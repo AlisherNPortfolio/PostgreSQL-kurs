@@ -47,7 +47,7 @@ Relatsion MBBT-ni relatsion bo'lmagan MBBT-dan ustunlik yoki kamchilik joyi yo'q
 
 ### 2-dars. Relatsion model va SQL.
 
-Relatsion MBBT-ning asosini relatsion algebra tashkil qiladi. Relatsion algebrani maktabda ham, institutda ham o'tmaganmiz. Relatsion algebraning paydo bo'lganiga unchalik ko'p vaqt ham bo'lgani yo'q (taxminan, 70-yillarda). 
+Relatsion MBBT-ning asosini relatsion algebra tashkil qiladi. Relatsion algebrani maktabda ham, institutda ham o'tmaganmiz. Relatsion algebraning paydo bo'lganiga unchalik ko'p vaqt ham bo'lgani yo'q (taxminan, 70-yillarda).
 
 Relatsion algebra munosabatlar (jadvallar) o'rtasida amallar bajarishni belgilab beradi: birlashtirish, kesishish, ayirish, bog'lash va shu kabi amallar. Bu amallarning barchasi SQL tili yordamida bajariladi.
 
@@ -96,7 +96,6 @@ PostgreSQL-ning afzalliklari
 
 <img src="images/download-page.png" alt="dowload-page" title="PostgreSQL-ning yuklab olish sahifasi" style="width:90%;height:90;margin:0 auto;display:block;">
 
-
 Kursda PostgreSQL-ning windows operatsion tizimga mo'ljallangan 12.8 versiyasini ishlatamiz.
 
 O'rnatish ketma-ketligi:
@@ -108,7 +107,6 @@ O'rnatish ketma-ketligi:
 2. O'rnatiladigan papka tanlanadi:
 
 <img src="images/install-1.1.png" alt="dowload-page" title="PostgreSQL o'rnatiladigan papkani tanlash oynasi" style="width:90%;height:90;margin:0 auto;display:block;">
-
 
 3. Kerakli tool-lar tanlanadi, next tugmasi bosiladi:
 
@@ -127,7 +125,6 @@ O'rnatish ketma-ketligi:
 <img src="images/install-5.png" alt="dowload-page" title="PostgreSQL uchun port terish sahifasi" style="width:90%;height:90;margin:0 auto;display:block;">
 
 7. Keyingi oynadan interfeys tili tanlanadi:
-
 
 <img src="images/install-6.png" alt="dowload-page" title="Interfeys tilini tanlash oynasi" style="width:90%;height:90;margin:0 auto;display:block;">
 
@@ -169,6 +166,11 @@ DBeaver-ni o'rnatgandan so'ng uni ochib PostgreSQL MBBT-ga bog'lanamiz:
 * PostgreSQL-da default user postgres hisoblanadi (user sozlamasida ham shu user nomi turadi). Agar boshqa foydalanuvchi yaratilgan bo'lsa, shu foydalanuvchi nomi user sozlamasiga kiritiladi.
 * Locale client qismida PostgreSQL-ning kerakli versiyasi tanlanadi.
 * SSH, Porxy, SSL va boshqa sozlamalar ham mavjud. Hozircha yuqoridagilar eng minimal sozlamalar hisoblanadi.
+
+Yaratilgan barcha MB-lar ko'rinishi uchun sozlamalardagi PostgreSQL bo'limida 'barcha MB-lar ko`rsatish' tugmasini belgilab qo'yish kerak bo'ladi:
+
+<img src="images/dbeaver-6.png" alt="DBeaver-6" title="DBeaver-6" style="width:90%;height:90;margin:0 auto;display:block;">
+
 
 5. Bog'lanish tugaganidan so'ng DBeaver-ning o'ng tomonidagi ro'yxatda yangi bog'lanish paydo bo'ladi:
 
@@ -217,3 +219,115 @@ Asosiy ma'lumot tiplarini bir nechta turga bo'lish mumkin:
    4. **Maxsus tiplar**. M: geometrik tip
    5. **Custom tiplar** (foydalanuvchi o'zi uchun yaratadigan tip)
    6. **NULL**. Ma'lumot mavjud emasligini bildiruvchi tip.
+
+### 6-dars. MB yaratish.
+
+PostgreSQL-da ikki xil usulda MB yaratish mumkin: vizual va SQL so'rov yordamida.
+
+**Vizual ko'rinishda MB yaratish.**
+
+Vizual ko'rinishda MB yaratishda PostgreSQL uchun o'rnatilgan interfeys dasturdan foydalaniladi. Bizda DBeaver dasturi o'rnatilgandi. DBeaver-dan foydalanib MB yaratamiz:
+
+1. Chap tomonda ochilgan bog'lanish ustiga sichqonchaning o'ng tugmasini bosib, ochilgan menyudan **Create->Database** tanlanadi:
+
+<img src="images/db-1.png" alt="db-1" title="db-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+2. Ochilgan oynada MB nomi, foydalanuvchi, kerakli kodirovka tanlanadi (bu eng minimal sozlash):
+
+<img src="images/db-2.png" alt="db-2" title="db-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Shundan so'ng dasturning chap tomonidagi MB-lar ro'yxatiga yangi ochgan MB-miz qo'shiladi:
+
+<img src="images/db-3.png" alt="db-3" title="db-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Rasmda ko'rganingizdek, jadvallar sxema bo'limidagi public ichida joylashgan. Bu yerda sxemalar turli xildagi foydalanuvchilar bilan ishlaganda foydalaniladi. Odatda, jadvallar public sxemasi ichida joylashadi va bu sxemaga barcha foydalanuvchilar murojaat qilishlari mumkin. Agar, qaysidir jadvallarga murojaatni cheklash kerak bo'lsa, shu jadvallar boshqa bitta sxema ichiga olinadi va bu sxemaga murojaat qilish uchun cheklovlar o'rnatiladi (rollar, permission-lar yordamida).
+
+**SQL yordamida MB ochish.**
+
+So'rov yordamida MB yaratishda (so'rov bilan boshqa amallarni ham bajarishda ham) so'rovni yozib ishga tushiradigan editor muhitini ochib olish kerak:
+
+<img src="images/db-4.png" alt="db-4" title="db-4" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Rasmda ko'rib tuganingizdek, **SQL editor** muhitini `F3` tugmasini bosib ham ochish mumkinligi ko'rsatilgan.
+
+SQL Editor muhitida MB yaratish so'rovini yozib `Ctrl+Enter` tugmalari yordamida ishga tushiramiz:
+
+<img src="images/db-5.png" alt="db-5" title="db-5" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Agar chap oynadagi postgres bog'lanishini tanlab, `F5` tugmasi yordamida ro'yxatni yangilasak qo'shagan MB-mizni ko'ramiz:
+
+<img src="images/db-6.png" alt="db-6" title="db-6" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 7-dars. Jadval yaratish.
+
+Endi jadval yaratishni ko'ramiz. Avval, yangi MB ochib olamiz: `create database postgre_lessons`.
+
+So'ng yaratgan MB-mizni tanlab turib, F3 tugmasini bosamiz va SQL editor-ni ochib olamiz. Endi, bemalol SQL so'rovlarni yozsak bo'ladi.
+
+**Jadval yaratish.**
+
+Jadval yaratish
+
+```bash
+create table jadval_nomi (ustun_nomi tipi boshqa_sozlamalar)
+```
+
+so'rovi yordamida amalga oshiriladi.
+
+Ikkita jadval yaratamiz. Birinchisi kitoblar (books), ikkinchisi nashriyotlar (publishers):
+
+```bash
+create table publishers
+(
+        publisher_id integer primary key,
+	org_name varchar(128) not null,
+	address text not null,
+	phone varchar(14)
+);
+
+create table books
+(
+	book_id integer primary key,
+	title text not null,
+	isbn varchar(32) not null
+);
+```
+
+Yuqorida berilgan publishers jadvalini yaratish so'rovni tahlil qilaylik:
+
+* `create table jadval_nomi` jadval yaratadi
+* qavs ichida berilganlar esa yaratilayotgan jadvalning ustunlari (`publisher_id`, `org_name` kabilar) hisoblanadi
+* ustun nomalari yonidan ustun tipi beriladi (m: `integer`, `varchar`, `text`)
+* `not null` ustunga ma'lumot kiritish majburiy ekanligini bildiradi
+* `publisher_id` ustuni yonidagi `primary key` ushbu ustun shu jadvalning takrorlanmas identifikatori ekanligini bildiradi.
+
+> Jadval yaratishda, agar ko'rsatilmasa, barcha jadvallar standart holda public sxemasi ichiga tushadi.
+
+<img src="images/lesson-7-1.png" alt="lesson-7-1" title="lesson-7-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+**Jadvalni o'chirish.**
+
+Jadvalni o'chirish so'rovi:
+
+```bash
+drop table jadval_nomi;
+```
+
+Masalan:
+
+```bash
+drop table publishers;
+drop table books;
+```
+
+Jadvalni vizual ko'rinishda ham yaratish mumkin. Buning uchun:
+
+1. Kerakli sxema(bizda public)dagi tables ustiga sichqonchaning o'ng tugmasini bosib ochilgan menyudan **create table** tanlanadi:
+
+<img src="images/lesson-7-2.png" alt="lesson-7-2" title="lesson-7-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+2. Jadval nomi beriladi va create column tugmasi bosilib, so'ng ochilgan oynadan qo'shilayotgan ustun ma'lumotlari to'ldiriladi:
+
+<img src="images/lesson-7-3.png" alt="lesson-7-3" title="lesson-7-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 8-dars. Jadvalga ma'lumot qo'shish.
