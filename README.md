@@ -439,9 +439,9 @@ Darsni xulosa qiladigan bo'lsak, `B` jadvalni `A` jadvalga bog'lash uchun `A` ja
 
 ### 9-dars. One to One relationship.
 
-MB bilan ishlashda jadvallarning turli xildagi bog'lanishlari mavjud. Ulardan biri - **One to One Relationship** (**Birga bir bog'lanish**). **One to One Relationship (OOR)**-ga bitta kishida bitta pasport bo'lishini misol qilib keltirish mumkin. Ya'ni, `people` jadvalidagi bitta yozuvga `passports` jadvalidagi faqat bitta yozuv bog'lana olishi mumkin.
+MB bilan ishlashda jadvallarning turli xildagi bog'lanishlari mavjud bo'ladi. Ulardan biri - **One to One Relationship** (**Birga bir bog'lanish**). **One to One Relationship (OOR)**-ga bitta kishida bitta pasport bo'lishini misol qilib keltirish mumkin. Ya'ni, `people` jadvalidagi bitta yozuvga `passports` jadvalidagi faqat bitta yozuv bog'lana olishi mumkin.
 
-Endi, shu misolni amalda ko'ramiz. Avval, people va passports jadvallarini yaratib olamiz:
+Endi, shu misolni amalda ko'ramiz. Avval, `people` va `passports` jadvallarini yaratib olamiz:
 
 ```bash
 create table people
@@ -476,6 +476,6 @@ insert into passports values
 (3, 3, 'AA7654321');
 ```
 
-Ko'rib turganingizdek people jadvalidagi bitta yozuvga passports jadvalidagi bitta yozuv bog'langan xolos.
+Ko'rib turganingizdek `people` jadvalidagi bitta yozuvga `passports` jadvalidagi bitta yozuv bog'langan xolos.
 
 OOR bog'lanish eng sodda bog'lanish hisoblanadi.
