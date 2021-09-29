@@ -279,7 +279,7 @@ Ikkita jadval yaratamiz. Birinchisi kitoblar (books), ikkinchisi nashriyotlar (p
 ```bash
 create table publishers
 (
-        publisher_id integer primary key,
+        id integer primary key,
 	org_name varchar(128) not null,
 	address text not null,
 	phone varchar(14)
@@ -287,7 +287,7 @@ create table publishers
 
 create table books
 (
-	book_id integer primary key,
+	id integer primary key,
 	title text not null,
 	isbn varchar(32) not null
 );
@@ -296,10 +296,10 @@ create table books
 Yuqorida berilgan publishers jadvalini yaratish so'rovni tahlil qilaylik:
 
 * `create table jadval_nomi` jadval yaratadi
-* qavs ichida berilganlar esa yaratilayotgan jadvalning ustunlari (`publisher_id`, `org_name` kabilar) hisoblanadi
+* qavs ichida berilganlar esa yaratilayotgan jadvalning ustunlari (`id`, `org_name` kabilar) hisoblanadi
 * ustun nomalari yonidan ustun tipi beriladi (m: `integer`, `varchar`, `text`)
 * `not null` ustunga ma'lumot kiritish majburiy ekanligini bildiradi
-* `publisher_id` ustuni yonidagi `primary key` ushbu ustun shu jadvalning takrorlanmas identifikatori ekanligini bildiradi.
+* `id` ustuni yonidagi `primary key` ushbu ustun shu jadvalning takrorlanmas identifikatori ekanligini bildiradi.
 
 > Jadval yaratishda, agar ko'rsatilmasa, barcha jadvallar standart holda public sxemasi ichiga tushadi.
 
@@ -331,3 +331,108 @@ Jadvalni vizual ko'rinishda ham yaratish mumkin. Buning uchun:
 <img src="images/lesson-7-3.png" alt="lesson-7-3" title="lesson-7-3" style="width:90%;height:90;margin:0 auto;display:block;">
 
 ### 8-dars. Jadvalga ma'lumot qo'shish.
+
+Yaratgan jadvallarimizga ma'lumot kiritish vaqti keldi. Jadvalga ma'lumot qo'shish quyidagi sintaksis bilan bajariladi:
+
+```bash
+insert into jadval_nomi values (ustun_1_qiymati, ustun_2_qiymati, ustun_3_qiymati);
+```
+
+Misol uchun, oldingi darsda yaratgan books jadvalimizga ma'lumot qo'shaylik:
+
+```bash
+insert into books values (1, 'Avlodlar dovoni', '1311141515');
+insert into books values (2, 'Humoyun va Akbar', '8787877171');
+```
+
+Agar birdaniga bir nechta yozuv qo'shmoqchi bo'lsak har bir so'rovni nuqtali vergul bilan ajratib keyingi so'rovni ketidan yozib ketishimiz mumkin (yuqoridagi misoldagiday).
+
+Yoki values-dan keyin birdaniga bir nechta yozuvni ham berib yuborishimiz mumkin:
+
+```bash
+insert into books values 
+    (1, 'Avlodlar dovoni', '1311141515'),
+    (2, 'Humoyun va Akbar', '8787877171');
+
+insert into publishers values
+	(1, 'G''afur G''ulom nashriyoti', 'Kichik halqa yo''li', '+998330000000'),
+	(2, 'Hilol nashr', 'Katta halqa yo''li', '+998331234567');
+```
+
+Publishers jadvaliga ma'lumot qo'shishda ko'rib turganingizdek, bitta tirnoqli qavs ichida *o'* harfini yozganda uning apostrifini qabul qilishi uchun yonidan yana bitta apostrif qo'yiladi (ekranlashtirish deyiladi: `'o''rdak'`).
+
+Jadvaldagi ma'lumotlarni `SELECT` operatori yordamida olib ko'rishimiz mumkin:
+
+<img src="images/lesson-8-1.png" alt="lesson-8-1" title="lesson-8-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Bu so'rovni tilimizga `books jadvalidan barcha maydonlarni tanlab ol` deb tarjima qilsak bo'ladi. So'rovdagi `*` barcha ustunlarni bildiradi.
+
+Endi ikkita jadval ma'lumotini birlashtirib ko'ramiz. Misol uchun, *'Avlodlar dovoni'* kitobini *G'afur G'ulom nashriyoti* chop etgan bo'lsin. Ya'ni, shu kitob *G'afur G'ulom nashriyoti*ga tegishli.
+
+Proyekt bilan jarayonida, ko'pgina hollarda jadval ma'lumotlar o'zgaro bo'langan bo'ladi. O'zimizdagi ikkita jadval misolida oladigan bo'lsak, books jadvalidagi biror kitob publishers jadvalidagi bitta nashriyotga bog'langan bo'ladi. Ya'ni, bitta kitob birorta nashriyotga tegishli bo'ladi. Endi savol paydo bo'ladi: qanday qilib nashriyot va kitobni bog'lashimiz mumkin? Axir, ular alohida jadvallarda joylashgan. Buning yo'li juda oson! Jadvallarni ularning id-lari yordamida bog'laymiz. Jadvallarni bog'lash uchun **tashqi kalit**lardan foydalaniladi.
+
+Ishni ikkala jadvalni o'chirib qaytadan yaratishdan boshlaylik:
+
+```bash
+drop table books;
+
+drop table publishers;
+
+create table publishers
+(
+	id serial not null,
+	org_name text not null,
+	address text not null,
+	phone varchar(13),
+	constraint pk_publishers primary key (id)
+);
+
+create table books
+(
+	id serial not null,
+	publisher_id int4 not null,
+	title varchar(255) not null,
+	isbn varchar(32) not null,
+	constraint pk_books primary key (id),
+	constraint fk_books foreign key (publisher_id) references publishers(id)
+);
+
+```
+
+Yuqoridagi script-larni tahlil qilaylik. Jadvallarni o'chirib bo'lganimizdan so'ng, birinchi bo'lib `publishers` jadvalini yaratamiz. Jadval yaratishni oldingisidan biroz boshqa amalga oshiramiz. Identifikator ustuni (`id`)ni `serial` tipida e'lon qilamiz. Bunda identifikator qiymati har safar yangi yozuv kiritilganda o'z-o'zidan bittaga oshib ketaveradi. Shu bilan birga unga oldingi safardagiday o'zining oldidan `primary key` berib o'tirmaymiz. Bu ishni oxirgi qatorida (`constraint pk_publishers primary key (id)`) amalga oshiramiz. Qolgan ustunlar oldigiday qoladi.
+
+Keyin esa, `books` jadvalini yaratamiz. `Books` jadvalini yaratish ham oldingisidan farq qiladi. Bu jadvalda ham identifikator xuddi `publishers`-dagiday amalga oshiriladi. Bundan tashqari, `books`-dagi har bir kitobni publishers jadvalidagi biror nashriyotga bog'lash uchun `books`-dan `publishers`-ga havola(link) o'rnatamiz. Ya'ni, `books` jadvaliga bitta ustun qo'shib, shu ustunni `pulishers` jadvalining identifiketor(`id`)iga bog'laymiz (`constraint fk_books foreign key (publisher_id) references publishers(id)`).
+
+Endi, yana qaytadan ma'lumotlarni kiritib chiqamiz:
+
+```bash
+insert into publishers values
+(1, 'G''afur G''ulom nashriyoti', 'Kichik halqa yo''li', '+998901234567'),
+(2, 'Sharq nashriyoti', 'Katta halqa yo''li', '+998711235278'),
+(3, 'Ilm-ziyo', 'Amir Temur k. 122', '+998715846396'),
+(4, 'Hilol nashr', 'Farg''ona yo''li ko''chasi', '+998851258975');
+
+insert into books values
+(1, 1, 'Kichkina Shahzoda', '125484844'),
+(2, 2, 'Nur va soyalar', '848454644'),
+(3, 2, 'Avlodlar dovoni', '2659548441'),
+(4, 3, 'Tom soyerning sarguzashtlari', '656288489'),
+(5, 1, 'Mehrobdan chayon', '9879746541'),
+(6, 3, 'O''n besh yoshli kapitan', '332554848'),
+(7, 2, 'Raqamli qal''a', '979786445'),
+(8, 2, 'Molxona', '2323546546'),
+(9, 1, 'Sariq devni minib', '21221514548'),
+(10, 4, 'Baxtiyor oila', '32365994549');
+```
+
+`Books` jadvalini ochib qaralsa, undagi publisher_id ustunidagi sonlar orqali kitob qaysi nashriyotga tegishli ekanini topish mumkin. Masalan, Identifikatori 3 ga teng bo'lgan *"Nur va soyalar"* kitobini 2 identifikatorga ega nasriyot nashr qilgan. `Publishers` jadvaliga qarasak 2-identifikatorda *"Sharq nashriyoti"* turibdi:
+
+`books` jadvali:
+
+<img src="images/lesson-8-2.png" alt="lesson-8-2" title="lesson-8-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+`publishers` jadvali:
+
+<img src="images/lesson-8-3.png" alt="lesson-8-3" title="lesson-8-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 9-dars. One to One relationship.
