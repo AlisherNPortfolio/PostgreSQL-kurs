@@ -425,7 +425,7 @@ insert into books values
 (10, 4, 'Baxtiyor oila', '32365994549');
 ```
 
-`Books` jadvalini ochib qaralsa, undagi publisher_id ustunidagi sonlar orqali kitob qaysi nashriyotga tegishli ekanini topish mumkin. Masalan, Identifikatori 3 ga teng bo'lgan *"Nur va soyalar"* kitobini 2 identifikatorga ega nasriyot nashr qilgan. `Publishers` jadvaliga qarasak 2-identifikatorda *"Sharq nashriyoti"* turibdi:
+`Books` jadvalini ochib qaralsa, undagi publisher_id ustunidagi sonlar orqali kitob qaysi nashriyotga tegishli ekanini topish mumkin. Masalan, Identifikatori 3 ga teng bo'lgan *"Nur va soyalar"* kitobini 2 identifikatorga ega nashriyot nashr qilgan. `Publishers` jadvaliga qarasak 2-identifikatorda *"Sharq nashriyoti"* turibdi:
 
 `books` jadvali:
 
