@@ -1,4 +1,4 @@
-# SQL va PostgreSQL kursi
+# 1-Bo'lim
 
 ### 1- dars. Asosiy tushunchalar
 
@@ -170,7 +170,6 @@ DBeaver-ni o'rnatgandan so'ng uni ochib PostgreSQL MBBT-ga bog'lanamiz:
 Yaratilgan barcha MB-lar ko'rinishi uchun sozlamalardagi PostgreSQL bo'limida 'barcha MB-lar ko`rsatish' tugmasini belgilab qo'yish kerak bo'ladi:
 
 <img src="images/dbeaver-6.png" alt="DBeaver-6" title="DBeaver-6" style="width:90%;height:90;margin:0 auto;display:block;">
-
 
 5. Bog'lanish tugaganidan so'ng DBeaver-ning o'ng tomonidagi ro'yxatda yangi bog'lanish paydo bo'ladi:
 
