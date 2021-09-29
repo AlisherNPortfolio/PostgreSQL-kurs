@@ -369,7 +369,7 @@ Bu so'rovni tilimizga `books jadvalidan barcha maydonlarni tanlab ol` deb tarjim
 
 Endi ikkita jadval ma'lumotini birlashtirib ko'ramiz. Misol uchun, *'Avlodlar dovoni'* kitobini *G'afur G'ulom nashriyoti* chop etgan bo'lsin. Ya'ni, shu kitob *G'afur G'ulom nashriyoti*ga tegishli.
 
-Proyekt bilan jarayonida, ko'pgina hollarda jadval ma'lumotlar o'zgaro bo'langan bo'ladi. O'zimizdagi ikkita jadval misolida oladigan bo'lsak, books jadvalidagi biror kitob publishers jadvalidagi bitta nashriyotga bog'langan bo'ladi. Ya'ni, bitta kitob birorta nashriyotga tegishli bo'ladi. Endi savol paydo bo'ladi: qanday qilib nashriyot va kitobni bog'lashimiz mumkin? Axir, ular alohida jadvallarda joylashgan. Buning yo'li juda oson! Jadvallarni ularning id-lari yordamida bog'laymiz. Jadvallarni bog'lash uchun **tashqi kalit**lardan foydalaniladi.
+Proyekt bilan ishlash jarayonida, ko'pgina hollarda jadval ma'lumotlar o'zgaro bo'langan bo'ladi. O'zimizdagi ikkita jadval misolida oladigan bo'lsak, books jadvalidagi biror kitob publishers jadvalidagi bitta nashriyotga bog'langan bo'ladi. Ya'ni, bitta kitob birorta nashriyotga tegishli bo'ladi. Endi savol paydo bo'ladi: qanday qilib nashriyot va kitobni bog'lashimiz mumkin? Axir, ular alohida jadvallarda joylashgan. Buning yo'li juda oson! Jadvallarni ularning id-lari yordamida bog'laymiz. Jadvallarni bog'lash uchun **tashqi kalit**lardan foydalaniladi.
 
 Ishni ikkala jadvalni o'chirib qaytadan yaratishdan boshlaylik:
 
