@@ -220,7 +220,7 @@ Asosiy ma'lumot tiplarini bir nechta turga bo'lish mumkin:
    5. **Custom tiplar** (foydalanuvchi o'zi uchun yaratadigan tip)
    6. **NULL**. Ma'lumot mavjud emasligini bildiruvchi tip.
 
-### 6-dars. MB yaratish.
+### 6 - dars. MB yaratish.
 
 PostgreSQL-da ikki xil usulda MB yaratish mumkin: vizual va SQL so'rov yordamida.
 
@@ -258,7 +258,7 @@ Agar chap oynadagi postgres bog'lanishini tanlab, `F5` tugmasi yordamida ro'yxat
 
 <img src="images/db-6.png" alt="db-6" title="db-6" style="width:90%;height:90;margin:0 auto;display:block;">
 
-### 7-dars. Jadval yaratish.
+### 7 - dars. Jadval yaratish.
 
 Endi jadval yaratishni ko'ramiz. Avval, yangi MB ochib olamiz: `create database postgre_lessons`.
 
@@ -330,7 +330,7 @@ Jadvalni vizual ko'rinishda ham yaratish mumkin. Buning uchun:
 
 <img src="images/lesson-7-3.png" alt="lesson-7-3" title="lesson-7-3" style="width:90%;height:90;margin:0 auto;display:block;">
 
-### 8-dars. Jadvalga ma'lumot qo'shish.
+### 8 - dars. Jadvalga ma'lumot qo'shish.
 
 Yaratgan jadvallarimizga ma'lumot kiritish vaqti keldi. Jadvalga ma'lumot qo'shish quyidagi sintaksis bilan bajariladi:
 
@@ -437,7 +437,7 @@ insert into books values
 
 Darsni xulosa qiladigan bo'lsak, `B` jadvalni `A` jadvalga bog'lash uchun `A` jadvalning bo'glanadigan ustuniga `primary key` berish kerak (odatda bu ustun identifikator - `id` ustuni bo'ladi. Chunki shu ustun doimo takrorlanmas - `unique` bo'ladi). `B` jadvalning `A` jadvaldagi bog'lanish ustuniga havola ko'rsatadigan ustuniga esa `foreign key` (**tashqi kalit**) beriladi.
 
-### 9-dars. One to One relationship.
+### 9 - dars. One to One relationship.
 
 MB bilan ishlashda jadvallarning turli xildagi bog'lanishlari mavjud bo'ladi. Ulardan biri - **One to One Relationship** (**Birga bir bog'lanish**). **One to One Relationship (OOR)**-ga bitta kishida bitta pasport bo'lishini misol qilib keltirish mumkin. Ya'ni, `people` jadvalidagi bitta yozuvga `passports` jadvalidagi faqat bitta yozuv bog'lana olishi mumkin.
 
@@ -479,3 +479,11 @@ insert into passports values
 Ko'rib turganingizdek `people` jadvalidagi bitta yozuvga `passports` jadvalidagi bitta yozuv bog'langan xolos.
 
 OOR bog'lanish eng sodda bog'lanish hisoblanadi.
+
+### 10 - dars. One to Many Relationship.
+
+One to Many Relationship (OMR) eng ko'p uchraydigan bog'lanish hisoblnadi. Hayotimizda ham bu bo'lanishni ko'p uchratamiz. Misol uchun, bitta kishining bir nechta farzandi, bitta mashina brendining bir qancha markada chiqargan mashinalari va h.k bo'lishi mumkin. 8-darsda misol sifatida ko'rgan nashriyot va kitoblar ham OMR-ga misol bo'ladi.
+
+OMR-ni tushunish uchun 8-darsdagi misolni qaytadan ko'rib chiqishingiz mumkin.
+
+### 11 - dars. Many to Many Relationship.
