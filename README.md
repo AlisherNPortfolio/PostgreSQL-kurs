@@ -482,7 +482,7 @@ OOR bog'lanish eng sodda bog'lanish hisoblanadi.
 
 ### 10 - dars. One to Many Relationship.
 
-One to Many Relationship (OMR) eng ko'p uchraydigan bog'lanish hisoblnadi. Hayotimizda ham bu bo'lanishni ko'p uchratamiz. Misol uchun, bitta kishining bir nechta farzandi, bitta mashina brendining bir qancha markada chiqargan mashinalari va h.k bo'lishi mumkin. 8-darsda misol sifatida ko'rgan nashriyot va kitoblar ham OMR-ga misol bo'ladi.
+**One to Many Relationship (OMR)** eng ko'p uchraydigan bog'lanish hisoblnadi. Hayotimizda ham bu bo'lanishni ko'p uchratamiz. Misol uchun, bitta kishining bir nechta farzandi, bitta mashina brendining bir qancha markada chiqargan mashinalari va h.k bo'lishi mumkin. 8-darsda misol sifatida ko'rgan nashriyot va kitoblar ham OMR-ga misol bo'ladi.
 
 OMR-ni tushunish uchun 8-darsdagi misolni qaytadan ko'rib chiqishingiz mumkin.
 
