@@ -435,4 +435,47 @@ insert into books values
 
 <img src="images/lesson-8-3.png" alt="lesson-8-3" title="lesson-8-3" style="width:90%;height:90;margin:0 auto;display:block;">
 
+Darsni xulosa qiladigan bo'lsak, `B` jadvalni `A` jadvalga bog'lash uchun `A` jadvalning bo'glanadigan ustuniga `primary key` berish kerak (odatda bu ustun identifikator - `id` ustuni bo'ladi. Chunki shu ustun doimo takrorlanmas - `unique` bo'ladi). `B` jadvalning `A` jadvaldagi bog'lanish ustuniga havola ko'rsatadigan ustuniga esa `foreign key` (**tashqi kalit**) beriladi.
+
 ### 9-dars. One to One relationship.
+
+MB bilan ishlashda jadvallarning turli xildagi bog'lanishlari mavjud. Ulardan biri - **One to One Relationship** (**Birga bir bog'lanish**). **One to One Relationship (OOR)**-ga bitta kishida bitta pasport bo'lishini misol qilib keltirish mumkin. Ya'ni, `people` jadvalidagi bitta yozuvga `passports` jadvalidagi faqat bitta yozuv bog'lana olishi mumkin.
+
+Endi, shu misolni amalda ko'ramiz. Avval, people va passports jadvallarini yaratib olamiz:
+
+```bash
+create table people
+(
+	id serial not null,
+	first_name varchar(64) not null,
+	last_name varchar(64) not null,
+	constraint pk_people primary key (id)
+);
+
+create table passports
+(
+	id serial not null,
+	person_id int4 not null,
+	serial_number varchar(9) not null,
+	constraint pk_passports primary key (id),
+	constraint fk_passports foreign key (person_id) references people(id)
+);
+```
+
+Keyin, jadvallarni ma'lumot bilan to'ldiramiz:
+
+```bash
+insert into people values
+(1, 'Kamol', 'Kamolov'),
+(2, 'Jamol', 'Jamolov'),
+(3, 'Salom', 'Salomov');
+
+insert into passports values
+(1, 1, 'AA1234567'),
+(2, 2, 'AB1234567'),
+(3, 3, 'AA7654321');
+```
+
+Ko'rib turganingizdek people jadvalidagi bitta yozuvga passports jadvalidagi bitta yozuv bog'langan xolos.
+
+OOR bog'lanish eng sodda bog'lanish hisoblanadi.
