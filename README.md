@@ -487,3 +487,79 @@ OOR bog'lanish eng sodda bog'lanish hisoblanadi.
 OMR-ni tushunish uchun 8-darsdagi misolni qaytadan ko'rib chiqishingiz mumkin.
 
 ### 11 - dars. Many to Many Relationship.
+
+**Many to Many Relationship (MMR)** - oldingi bog'lanishlarga nisbatan biroz murakkab bog'lanish hisoblanadi. **MMR**-ni tushunish uchun yana misol ko'raylik.
+
+Ma'lumki, hozirda ijtimoiy tarmoqlar ancha ommalashdi. Bitta kishi bir nechta ijtimoiy tarmoqda sahifa ochishi mumkin. Mana shu holat MMR-ga oddiy misol bo'la oladi. Ya'ni, misol uchun, `social_networks` jadvalidagi *facebook* qatori `users` jadvalidagi bir nechta foydalanuvchiga bog'lanishi mumkin, va aksincha, `users` jadvalidagi *Salom* degan foydalanuvchi `social_networks` jadvalidagi bir nechta ijtimoiy tarmoqqa bog'lanishi mumkin.
+
+MMR-da jadvallarni bog'lash har doimgiday `primary key` va `foreign key`-lardan foydalaniladi. Qolgan bog'lanishlardan farqi bu bog'lanishda ikkita jadvalni bog'lash uchun uchinchi jadvaldan foydalaniladi.
+
+MMR-ni amaliy ko'rish uchun tepadagi ijtimoiy tarmoq misolimizni olamiz.
+
+Avval, ikkala jadvallarni yaratib olamiz:
+
+`users` jadvali:
+
+```bash
+create table users
+(
+	id serial not null,
+	first_name varchar(64) not null,
+	last_name varchar(64) not null,
+	constraint pk_users primary key (id)
+);
+```
+
+`social_networks` jadvali:
+
+```bash
+create table social_networks
+(
+	id serial not null,
+	social_network varchar(64) not null,
+	url varchar(255) not null,
+	constraint pk_social_networks primary key (id)
+);
+```
+
+`user_socials` jadvali:
+
+```bash
+create table user_socials
+(
+	user_id int4 not null,
+	social_id int4 not null,
+	constraint pk_user_social primary key (user_id, social_id),
+	constraint fk_user_socials_user_id foreign key (user_id) references users(id),
+	constraint fk_user_socials_social_id foreign key (social_id) references social_networks(id)
+);
+```
+
+Ko'rib turganingizdek, `users` va `social_networks` jadvallarida hech qanday `foreign key` ustuni yo'q. Bu ikkala jadvalni faqatgina `user_socials` jadvali bo'glab turibdi. `user_socials` jadvalidagi `user_id` va `social_id` bog'lovchi ustunlar esa `foreign key` bilan yaratilgan.
+
+Endi jadvallarga ma'lumot kiritamiz:
+
+```bash
+insert into users values
+(1, 'Kamol', 'Kamolov'),
+(2, 'Salom', 'Salomov'),
+(3, 'Jamol', 'Jamolov');
+
+insert into social_networks values
+(1, 'Facebook', 'facebook.com'),
+(2, 'Instagram', 'instagram.com'),
+(3, 'Tik Tok', 'tiktok.com');
+
+insert into user_socials values
+(1, 1),
+(1, 3),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(3, 3);
+```
+
+`user_socials` jadvalini ochib ko'rsangiz `users` va `social_networks` jadvallari `id`-lari yordamida bog'langanini ko'rasiz:
+
+<img src="images/lesson-11-1.png" alt="lesson-11-1" title="lesson-11-1" style="width:90%;height:90;margin:0 auto;display:block;">
