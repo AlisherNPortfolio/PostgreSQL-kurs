@@ -210,3 +210,35 @@ WHERE freight BETWEEN 20 and 40;
 ```
 
 `BETWEEN` bilan oraliq aniqlanganda ikki tomondagi qiymat ham hisobga olinadi. Ya'ni, bizning misolda, oraliqqa 20 va 40 ham kiradi.
+
+### 8-dars. IN, NOT IN
+
+Faraz qilaylik, customers jadvalidan Meksika, Germaniya, AQSh va Kanadadagi buyurtmachilarni saralab olishimiz kerak. Bu vazifani OR operatori yordamida quyidagicha hal qilish mumkin:
+
+```bash
+SELECT * 
+FROM customers
+where country = 'Mexico' or country = 'Germany' or country = 'USA' or country = 'Canada';
+```
+
+Ko'rib turganingizdek, shartlar soni oshishi bilan so'rovning hajmi oshib ketyapti. Bu esa so'rovni o'qishni qiyinlashtiradi. Agar 10 yoki 15 ta davlat bo'yicha saralansa so'rov bundan ham katta bo'lishi aniq.
+
+Bunday holatda biz IN operatoridan foydalanamiz. Masalan:
+
+```bash
+SELECT * 
+FROM customers
+where country IN ('Mexico', 'Germany', 'USA', 'Canada');
+```
+
+Oldingi so'rov bilan solishtirganda bunisi ancha soddalashdi.
+
+`NOT IN` operatori `IN` operatorining aksi hisoblanadi. Ya'ni, `NOT IN`-da berilgan to'plamdagilarga teng bo'lmagan yozuvlarni olib beradi. Misol uchun, products jadvalidan kategoriyasi *Beverages*, *Confections*, *Produce* va *Seafood* bo'lmagan mahsulotlarni saralab olaylik:
+
+```bash
+SELECT product_name, category_id 
+FROM products
+WHERE category_id NOT IN (1, 3, 7, 8);
+```
+
+<img src="images/lesson-8-1.png" alt="lesson-8-1" title="lesson-8-1" style="width:90%;height:90;margin:0 auto;display:block;">
