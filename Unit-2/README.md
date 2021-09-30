@@ -42,9 +42,9 @@ Ma'lumot sifatida test MB-dagi `products` jadvali ma'lumotlaridan foydalanamiz. 
 
 <img src="images/lesson-2-1.png" alt="lesson-2-1" title="lesson-2-1" style="width:90%;height:90;margin:0 auto;display:block;">
 
-# 3-dars. DISTINCT
+### 3-dars. DISTINCT
 
-DISTINCT operatori jadvaldagi takrorlanmas (unique) ma'lumotlarni olib beradi. Misol uchun, test MB-dagi `employees` jadvalidan ishchilar yashaydigan shaharlarni olishimiz kerak bo'lsin (masalan, mana shu shaharlardan ishchilarimiz bor deb saytimizda ko'rsatmoqchimiz):
+`DISTINCT` operatori jadvaldagi takrorlanmas (unique) ma'lumotlarni olib beradi. Misol uchun, test MB-dagi `employees` jadvalidan ishchilar yashaydigan shaharlarni olishimiz kerak bo'lsin (masalan, mana shu shaharlardan ishchilarimiz bor deb saytimizda ko'rsatmoqchimiz):
 
 ```bash
 SELECT city FROM employees;
@@ -60,10 +60,40 @@ SELECT DISTINCT city FROM employees;
 
 <img src="images/lesson-3-2.png" alt="lesson-3-2" title="lesson-3-2" style="width:90%;height:90;margin:0 auto;display:block;">
 
-DISTINCT bilan nafaqat bitta, balki bir nechta ustunlarni ham ishlatish mumkin:
+`DISTINCT` bilan nafaqat bitta, balki bir nechta ustunlarni ham ishlatish mumkin:
 
 ```bash
 SELECT DISTINCT city, country FROM employees;
 ```
 
 <img src="images/lesson-3-3.png" alt="lesson-3-3" title="lesson-3-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 4-dars. COUNT
+
+`COUNT` operatori qatorlar sonini hisoblab beradi. Masalan, `orders` jadvalida qancha yozuv borligini bilmoqchimiz:
+
+```bash
+SELECT COUNT(*) FROM orders;
+```
+
+<img src="images/lesson-4-1.png" alt="lesson-4-1" title="lesson-4-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Bu yerda `COUNT(*)` dagi `*` o'rniga jadvaldagi birorta ustun nomini qo'shsa ham bo'ladi:
+
+```bash
+SELECT COUNT(id) FROM orders;
+```
+
+Endi, `employees` jadvalida nechta davlat borligini ko'raylik:
+
+```bash
+SELECT COUNT(id) FROM employees;
+```
+
+Lekin bu so'rov `employees` jadavalidagi davlatlar sonini emas, balki jadvaldagi barcha qatorlar sonini hisoblab beradi. Oldingi darsda ko'rganimizdek, davlatlar takrorlanib chiqqani sababli `COUNT` bizga no'to'g'ri ma'lumot chiqarib beradi. Nima qilish kerak? Albatta, `DISTINCT`-dan foydalanamiz!
+
+```bash
+SELECT COUNT(DISTINCT country) FROM employees;
+```
+
+<img src="images/lesson-4-2.png" alt="lesson-4-2" title="lesson-4-2" style="width:90%;height:90;margin:0 auto;display:block;">
