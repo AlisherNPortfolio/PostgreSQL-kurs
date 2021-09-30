@@ -42,6 +42,12 @@ Ma'lumot sifatida test MB-dagi `products` jadvali ma'lumotlaridan foydalanamiz. 
 
 <img src="images/lesson-2-1.png" alt="lesson-2-1" title="lesson-2-1" style="width:90%;height:90;margin:0 auto;display:block;">
 
+Ikkinchi misol, orders jadvalida buyurtmani yetkazib berishga qancha vaqt ketagnini hisoblaylik. PostgreSQL-da vaqt usti ham matematik amallarni bajarish mumkin. Shuning uchun yetkazib berishga ketgan vaqtni jo'natilgan vaqtdan yetkazil berilgan vaqtni ayirish orqali topib olamiz:
+
+```bash
+SELECT order_id, shipped_date - order_date FROM orders;
+```
+
 ### 3-dars. DISTINCT
 
 `DISTINCT` operatori jadvaldagi takrorlanmas (unique) ma'lumotlarni olib beradi. Misol uchun, test MB-dagi `employees` jadvalidan ishchilar yashaydigan shaharlarni olishimiz kerak bo'lsin (masalan, mana shu shaharlardan ishchilarimiz bor deb saytimizda ko'rsatmoqchimiz):
