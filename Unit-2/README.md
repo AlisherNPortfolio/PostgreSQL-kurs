@@ -21,3 +21,49 @@ Misolda keltirilgan `*` barcha ustunlarni olishni anglatadi. Lekin doim ham `*` 
 <img src="images/lesson-1-2.png" alt="lesson-1-2" title="lesson-1-2" style="width:90%;height:90;margin:0 auto;display:block;">
 
 ### 2-dars. Matematik amallar
+
+SQL tili dasturlash tillari singari matematik amallarni bajarish imkonini beradi.
+
+SQL tilidagi matematik amallar:
+
+* `+` - qo'shish
+* `-` - ayirish
+* `*` - ko'paytirish
+* `/` - bo'lish
+* `^` - darajaga oshirish
+* `|/` - kvadrat ildiz
+* va boshqa ko'plab operator va funksiyalar
+
+PostgreSQL-ning o'zida ham yana qo'shimcha matematik amallari mavjud.
+
+Endi, amaliyotga o'tib, matematik amallarni bajarish ko'ramiz.
+
+Ma'lumot sifatida test MB-dagi `products` jadvali ma'lumotlaridan foydalanamiz. `Products` jadvalida bitta mahsulot narxi (`unit_price`) va do'kondagi mahsulotlar soni (`unis_in_stock`) ustunlari mavjud. `Products` jadvalidagi mahsulotlar ro'yxatini chiqarishda, yangi ustunda mahsulotning umumiy narxini ham qo'shib chiqaraylik.
+
+<img src="images/lesson-2-1.png" alt="lesson-2-1" title="lesson-2-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+# 3-dars. DISTINCT
+
+DISTINCT operatori jadvaldagi takrorlanmas (unique) ma'lumotlarni olib beradi. Misol uchun, test MB-dagi `employees` jadvalidan ishchilar yashaydigan shaharlarni olishimiz kerak bo'lsin (masalan, mana shu shaharlardan ishchilarimiz bor deb saytimizda ko'rsatmoqchimiz):
+
+```bash
+SELECT city FROM employees;
+```
+
+<img src="images/lesson-3-1.png" alt="lesson-3-1" title="lesson-3-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Lekin, ko'rib turganingizdek, ba'zi shaharlar takrorlanib chiqib qoldi (chunki, ayrim ishchilar bitta shahardan). Bizga esa, faqat bittasi yetarli. Duplikat (takrorlangan) shaharlarni qanday olib tashlash mumkin? Albatta, `DISTINCT` operatori bilan!
+
+```bash
+SELECT DISTINCT city FROM employees;
+```
+
+<img src="images/lesson-3-2.png" alt="lesson-3-2" title="lesson-3-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+DISTINCT bilan nafaqat bitta, balki bir nechta ustunlarni ham ishlatish mumkin:
+
+```bash
+select distinct city, country from employees;
+```
+
+<img src="images/lesson-3-3.png" alt="lesson-3-3" title="lesson-3-3" style="width:90%;height:90;margin:0 auto;display:block;">
