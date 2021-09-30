@@ -320,3 +320,45 @@ WHERE category_id = 8;
 ```
 
 <img src="images/lesson-10-3.png" alt="lesson-10-3" title="lesson-10-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 11-dars. LIKE
+
+**LIKE** operatori jadvaldan matn ko'rinishidagi ma'lumotlarni qidirishda foydalaniladi.
+
+`LIKE` bilan qidirishda ikkita `wildcard`-dan foydalaniladi:
+
+* `%` - placeholder. 0, 1 yoki undan ko'p belgilarni ifodalaydi
+* `_` - ostchiziq ixtiyoriy bitta belgini bildiradi.
+
+`LIKE` bilan jadvaldan ma'lumot qidirish:
+
+* `LIKE 'U%'` - U bilan boshlanuvchi matnlarni qidiradi.
+* `LIKE '%a'` - a harfi bilan tugaydigan matnlarni didiradi.
+* `LIKE '%Salom%'` - Salom so'zi qatnashgan har qanday matnni qidiradi.
+* `LIKE 'S%m'` - S bilan boshlanib m bilan tugaydigan barcha matnlarni qidiradi
+* `LIKE '_alo_'` - ikki chetida ixtiyoriy belgi, o'rta qismi esa *alo* bo'lgan barcha so'zlarni qidiradi.
+* `LIKE '_alo%'` - birinchi belgisi ixtiyoriy belgi, undan keyin alo, undan keyin esa ixtiyoriy matn bo'lgan barcha matnlarni qidiriadi
+* va hokazo
+
+Misol. Nomi *e* harfi bilan tugaydigan barcha mahsulotlarni topaylik:
+
+```bash
+SELECT product_name, unit_price 
+FROM products
+WHERE product_name LIKE '%e';
+```
+
+<img src="images/lesson-11-1.png" alt="lesson-11-1" title="lesson-11-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+So'rov oxir *e* harfi bilan tugaydigan barcha mahsulotlarni topib berdi.
+
+Yoki, birinchi harfi Si bilan boshlanadigan mahsulotlarni olaylik:
+
+```bash
+SELECT product_name, unit_price 
+FROM products
+WHERE product_name LIKE 'Si%';
+```
+
+
+<img src="images/lesson-11-2.png" alt="lesson-11-2" title="lesson-11-2" style="width:90%;height:90;margin:0 auto;display:block;">
