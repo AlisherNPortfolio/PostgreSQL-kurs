@@ -362,3 +362,19 @@ WHERE product_name LIKE 'Si%';
 
 
 <img src="images/lesson-11-2.png" alt="lesson-11-2" title="lesson-11-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 12-dars. LIMIT
+
+Ba'zi paytlarda jadvaldan barcha qatorlarni olish shart bo'lmaydi. Faqatgina cheklangan sonini olsak, bizga yetarli bo'ladi. Jadvaldan nechta yozuvni olishni esa **LIMIT** operatori bilan beramiz.
+
+Misol uchun, birinchi 10 ta mahsulotlar ro'yxatini olish kerak bo'lsin:
+
+```bash
+SELECT product_name, unit_price 
+FROM products
+LIMIT 10;
+```
+
+<img src="images/lesson-12-1.png" alt="lesson-12-1" title="lesson-12-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+LIMIT operatorini hayotda ishlatilishiga misol qilib ma'lumotlarni pagination uchun bo'laklab jo'natishni keltirish mumkin.
