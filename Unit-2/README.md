@@ -103,3 +103,46 @@ SELECT COUNT(DISTINCT country) FROM employees;
 ```
 
 <img src="images/lesson-4-2.png" alt="lesson-4-2" title="lesson-4-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+
+### 5-dars. WHERE
+
+WHERE operatori bilan olinayotgan ma'lumotni biror ustun yoki ustunlar orqali filterlar olish mumkin. Aniqroq aytganda, olinadigan ma'lumotni biror shartga ko'ra chiqarib olish hisoblanadi.
+
+Sintaksisi:
+
+```bash
+SELECT ustun1, ustun2, ..., ustunN FROM jadval_nomi WHERE shart;
+```
+
+Bu yerdagi shart **taqqoslash operatorlari** yordamida beriladi. Quyidagicha taqqoslash operatorlari bor:
+
+* `=` - teng
+* `>` - katta
+* `>=` - katta yoki teng
+* `<` - kichik
+* `<=` - kichik yoki teng
+* `<>` yoki `!=` - teng emas
+
+Yuqoridagilarning barchasi `boolean` tipini beradi.
+
+Quyidagi misolni ko'ramiz: `customers` jadvalidan hamma AQSh-dan bo'lgan buyurtmachilarni tanlab olaylik:
+
+```bash
+SELECT company_name, contact_name, phone  
+FROM customers
+where country = 'USA';
+```
+
+<img src="images/lesson-5-1.png" alt="lesson-5-1" title="lesson-5-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Yoki, products jadvalidan mahsulot narxi 50 dan katta bo'lgan mahsulotlar nechta ekanligini aniqlaylik:
+
+```bash
+SELECT COUNT(*)  
+FROM products
+where unit_price > 50;
+```
+
+<img src="images/lesson-5-2.png" alt="lesson-5-2" title="lesson-5-2" style="width:90%;height:90;margin:0 auto;display:block;">
