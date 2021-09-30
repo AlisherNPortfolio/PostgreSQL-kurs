@@ -274,3 +274,49 @@ ORDER BY country DESC, city DESC;
 ```
 
 <img src="images/lesson-9-2.png" alt="lesson-9-2" title="lesson-9-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 10-dars. MIN, MAX, AVG, SUM
+
+Bu darsda yozuvlardagi eng kichik (MIN), eng katta (MAX), o'rtacha (AVG) va umumiy yig'indi (SUM) qiymatlarni topuvchi funksiyalarni o'rganamiz.
+
+Bizga Londondan kelgan buyurtmalarning eng eskisini topish vazifasi berilgan bo'lsin. Bu vazifani ORDER BY yordamida ham bajarsak bo'ladi:
+
+```bash
+SELECT ship_city, order_date FROM orders
+WHERE ship_city = 'London'
+ORDER BY order_date;
+```
+
+Lekin bu so'rov, birinchidan, biroz uzun, ikkinchidan katta hajmli jadval bo'ladigan bo'lsa, ko'p miqdordagi ma'lumotlarni tartiblanganligi sababli tezlik pasayib ketadi. Bunday muammolarni esa MIN funksiyasi bilan hal qilinadi:
+
+```bash
+SELECT MIN(order_date) FROM orders
+WHERE ship_city = 'London';
+```
+
+<img src="images/lesson-10-1.png" alt="lesson-10-1" title="lesson-10-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+MAX funksiyasi ham xuddi shunday ishlatiladi. Farqi, MAX eng katta qiymatni olib beradi:
+
+```bash
+SELECT MAX(order_date) FROM orders
+WHERE ship_city = 'London';
+```
+
+AVG funksiyasi bir nechta yozuvlarning bitta ustuni qiymatlarining o'rtachasini olib beradi. Misol uchun, seafood kategoriyasiga tegishli mahsulotlarning o'rtacha narxini hisoblab ko'raylik:
+
+```bash
+SELECT AVG(unit_price) FROM products
+WHERE category_id = 8;
+```
+
+<img src="images/lesson-10-2.png" alt="lesson-10-2" title="lesson-10-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+SUM funksiyasi esa yozuvlarning bitta ustuni qiymatlarining yig'indisini beradi. Masalan, products jadvalidagi category_id-si 8 bo'lmagan barcha yozuvlarning units_in_stock ustuni qiymatlarining yig'indisini topaylik:
+
+```bash
+SELECT SUM(units_in_stock) FROM products
+WHERE category_id = 8;
+```
+
+<img src="images/lesson-10-3.png" alt="lesson-10-3" title="lesson-10-3" style="width:90%;height:90;margin:0 auto;display:block;">
