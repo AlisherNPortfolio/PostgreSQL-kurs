@@ -146,3 +146,45 @@ where unit_price > 50;
 ```
 
 <img src="images/lesson-5-2.png" alt="lesson-5-2" title="lesson-5-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 6-dars. AND, OR
+
+Oldingi darsni davom ettiramiz. `WHERE` bilan filterlash paytida biz faqat bitta ustun bilan filterlayotgan edik. Lekin, agar bir nechta ustun bo'yicha filterlash kerak bo'lib qolsachi? Bu paytda `AND` va `OR` mantiqiy operatorlaridan foydalanamiz (`NOT` mantiqiy operatori ham bor. Uni keyinroq ko'ramiz).
+
+Sintaksisi
+
+```bash
+SELECT ustun1, ustun2, ..., ustunN
+FROM jadval_nomi
+WHERE shart1 AND shart2 OR shart3 ...
+```
+
+`AND`-ning ishlashi. `AND` bilan shart berganda `AND` ning ikkala tomonidagi shart bir vaqtda bajarilishi kerak. Misol uchun, AQSh ning San Fransisko shtatidan bo'lgan buyurtmachilar kerak bo'lsa (ya'ni ham AQSh-dan bo'lishi kerak, ham AQSh-ning San Fransisko shtatida yashashi kerak) quyidagicha so'rov yozamiz:
+
+```bash
+SELECT * 
+FROM customers 
+WHERE country = 'USA' AND city = 'San Francisco';
+```
+
+`OR`-ning ishlashi. `OR` bilan shart berilganda `OR`-ning ikkala tomonidagi shartlardan bittasi bajarilsa ham filter ma'lumot qaytaradi. Masalan, `orders` jadvalidan Braziliya yoki Rossiyadan bo'lgan buyurtmalarni saralab olaylik:
+
+```bash
+SELECT customer_id, ship_name, ship_country 
+FROM orders
+WHERE ship_country = 'Brazil' OR ship_country = 'Russia';
+```
+
+<img src="images/lesson-6-1.png" alt="lesson-6-1" title="lesson-6-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Natijadan ko'rinib turibdiki, bizga faqat Braziliyadan bo'lgan buyurtmalar chiqyapti. Chunki, Rossiyadan hech qanday buyurtma bo'lmagan. Ya'ni, birinchi shart bajarilib ikkinchi shart bajarilmasa ham filter birinchi shartga tegishli ma'lumotlarni chiqarib beryapti. Bu yerda, agar ikkala tomondagi shart ham bajarilsa ikkala shart bo'yicha ham ma'lumotlarni chiqarib beradi.
+
+Filterlashda, agar bir nechta shart ishlatilsa, ularning ayrimlarini **guruhlash** ham mumkin (**guruhlash qavs bilan amalga oshiriladi**). Guruhlaganda,  guruh ichidagi shartlar natijasi bitta shart sifatida olib ketiladi. Masalan:
+
+```bash
+SELECT * 
+FROM orders
+where shipped_date = '1998-04-30' and (freight < 75 or freight > 150);
+```
+
+Yuqoridagi so'rov bo'yicha, `orders` jadvalidan og'irligi 75  dan katta, 150 dan kichik va 1998-yil 30-apreldagi buyurtmalarni saralab olamiz. Bu so'rovda massani 75 va 150 orasida berish `OR` bilan bajarilyapti (ikkala shart bitta guruh qilib olingan) va ulardan qaytgan natija `AND` yordamida birinchi shart bilan birlashtirilyapti.
