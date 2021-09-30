@@ -63,7 +63,7 @@ SELECT DISTINCT city FROM employees;
 DISTINCT bilan nafaqat bitta, balki bir nechta ustunlarni ham ishlatish mumkin:
 
 ```bash
-select distinct city, country from employees;
+SELECT DISTINCT city, country FROM employees;
 ```
 
 <img src="images/lesson-3-3.png" alt="lesson-3-3" title="lesson-3-3" style="width:90%;height:90;margin:0 auto;display:block;">
