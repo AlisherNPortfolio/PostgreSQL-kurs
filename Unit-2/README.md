@@ -104,8 +104,6 @@ SELECT COUNT(DISTINCT country) FROM employees;
 
 <img src="images/lesson-4-2.png" alt="lesson-4-2" title="lesson-4-2" style="width:90%;height:90;margin:0 auto;display:block;">
 
-
-
 ### 5-dars. WHERE
 
 WHERE operatori bilan olinayotgan ma'lumotni biror ustun yoki ustunlar orqali filterlar olish mumkin. Aniqroq aytganda, olinadigan ma'lumotni biror shartga ko'ra chiqarib olish hisoblanadi.
@@ -242,3 +240,37 @@ WHERE category_id NOT IN (1, 3, 7, 8);
 ```
 
 <img src="images/lesson-8-1.png" alt="lesson-8-1" title="lesson-8-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 9-dars. ORDER BY
+
+`ORDER BY` operatorlari ketma-ketligi yordamida olayotgan ma'lumotlarimizni biror ustuni bo'yicha tartiblab chiqaramiz.
+
+Sintaksisi:
+
+```bash
+SELECT ustun1, ustun2, ..., ustunN FROM jadval_nomi ORDER BY ustunO ASC/DESC;
+```
+
+Bu yerda `ustunO` - qaysi ustun bo'yicha tartiblanayotgan bo'lsa, shu ustun nomi, `ASC/DESC` - qanaqa ko'rinishda tartiblanishi. `ASC` - ascending (o'sish), `DESC` - descending (kamayish).
+
+Tartiblash shartini ko'rsatishda bitta ustun uchun faqat `ASC` yoki faqat `DESC` ko'rsatiladi.
+
+Misol. `customers` jadvalidan davlatlarni kamayish tartibida saralaylik:
+
+```bash
+SELECT DISTINCT country 
+FROM customers
+ORDER BY country DESC;
+```
+
+<img src="images/lesson-9-1.png" alt="lesson-9-1" title="lesson-9-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Birdaniga bir nechta ustun bo'yicha ham tartiblash mumkin.
+
+```bash
+SELECT distinct country, city 
+FROM customers
+ORDER BY country DESC, city DESC;
+```
+
+<img src="images/lesson-9-2.png" alt="lesson-9-2" title="lesson-9-2" style="width:90%;height:90;margin:0 auto;display:block;">
