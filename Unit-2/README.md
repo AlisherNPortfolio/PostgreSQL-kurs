@@ -378,3 +378,29 @@ LIMIT 10;
 <img src="images/lesson-12-1.png" alt="lesson-12-1" title="lesson-12-1" style="width:90%;height:90;margin:0 auto;display:block;">
 
 LIMIT operatorini hayotda ishlatilishiga misol qilib ma'lumotlarni pagination uchun bo'laklab jo'natishni keltirish mumkin.
+
+### 13-dars. NULL-ga tekshirish
+
+Oldingi bo'limda **NULL** tipi haqida ma'lumot berilgan edi. Endi, jadvaldagi `NULL` qiymatli ma'lumotlarni tekshirishni ko'ramiz.
+
+Test MB-dagi orders jadvalni ko'radigan bo'lsak, `ship_region` ustunida ko'pchilik maydonlar `NULL` qiymatga ega.
+
+Shu yerda bizga ship_region maydoni `NULL` bo'lgan barcha buyurtmalarni chiqarib berish vazifasi berildi deylik. Bu vazifani quyidagicha bajaramiz:
+
+```bash
+SELECT ship_city, ship_region, ship_country 
+FROM orders
+WHERE ship_region IS NULL;
+```
+
+<img src="images/lesson-13-1.png" alt="lesson-13-1" title="lesson-13-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+ship_region maydonlari `NULL` bo'lmaganlari esa `IS NOT NULL` qilib olinadi:
+
+```bash
+SELECT ship_city, ship_region, ship_country 
+FROM orders
+WHERE ship_region IS NOT NULL;
+```
+
+<img src="images/lesson-13-2.png" alt="lesson-13-2" title="lesson-13-2" style="width:90%;height:90;margin:0 auto;display:block;">
