@@ -184,7 +184,29 @@ Filterlashda, agar bir nechta shart ishlatilsa, ularning ayrimlarini **guruhlash
 ```bash
 SELECT * 
 FROM orders
-where shipped_date = '1998-04-30' and (freight < 75 or freight > 150);
+where shipped_date = '1998-04-30' and (freight > 75 or freight < 150);
 ```
 
 Yuqoridagi so'rov bo'yicha, `orders` jadvalidan og'irligi 75  dan katta, 150 dan kichik va 1998-yil 30-apreldagi buyurtmalarni saralab olamiz. Bu so'rovda massani 75 va 150 orasida berish `OR` bilan bajarilyapti (ikkala shart bitta guruh qilib olingan) va ulardan qaytgan natija `AND` yordamida birinchi shart bilan birlashtirilyapti.
+
+### 7-dars. BETWEEN
+
+Bizga quyidagicha vazifa berildi: massasi 20 dan katta yoki teng va 40 dan kichik yoki teng bo'lgan buyurtmalarni olib berishimiz kerak. Bu vazifani `AND` operatori bilan bajarishimiz mumkin:
+
+```bash
+SELECT * 
+FROM orders
+WHERE freight >= 20 or freight <= 40;
+```
+
+Lekin bu vazifani `BETWEEN` operatori bilan bajarish mumkin. `BETWEEN` operatori intervalni bildiradi. Ingliz tilidan tarjima qilinganda `between` - orasida degani.
+
+Yuqoridagi misolni `BETWEEN` bilan quyidagicha yozamiz:
+
+```bash
+SELECT * 
+FROM orders
+WHERE freight BETWEEN 20 and 40;
+```
+
+`BETWEEN` bilan oraliq aniqlanganda ikki tomondagi qiymat ham hisobga olinadi. Ya'ni, bizning misolda, oraliqqa 20 va 40 ham kiradi.
