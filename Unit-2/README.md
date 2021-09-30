@@ -137,7 +137,7 @@ where country = 'USA';
 
 <img src="images/lesson-5-1.png" alt="lesson-5-1" title="lesson-5-1" style="width:90%;height:90;margin:0 auto;display:block;">
 
-Yoki, products jadvalidan mahsulot narxi 50 dan katta bo'lgan mahsulotlar nechta ekanligini aniqlaylik:
+Yoki, `products` jadvalidan mahsulot narxi 50 dan katta bo'lgan mahsulotlar nechta ekanligini aniqlaylik:
 
 ```bash
 SELECT COUNT(*)  
