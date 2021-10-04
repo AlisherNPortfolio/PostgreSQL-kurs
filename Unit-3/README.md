@@ -45,3 +45,79 @@ Bu turdagi bog'lanish juda kam ham holatda ishlatiladi. Bu bog'lanishni keyinroq
 <img src="images/lesson-1-4.png" alt="lesson-1-4" title="lesson-1-4" style="width:90%;height:90;margin:0 auto;display:block;">
 
 Ko'rib turganingizdek, `CROSS JOIN` bizga doim ham kerak bo'lavermaydi.
+
+### 2-dars. INNER JOIN
+
+`INNER JOIN` haqida oldingi darsda ma'lumot berilgan edi. Bu darsda `INNER JOIN`-ga misol ko'ramiz.
+
+Agar test MB-sidagi `products` jadvaliga qarasak, unda bir nechta tashqi kalitli mayodonlar mavjud. Ya'ni, bu jadval boshqa bir nechta jadval ma'lumotlari bilan bog'langan. Misol uchun, `supplier_id` maydonini olaylik (`suppliers` jadvali bilan bog'langan).
+
+Agar biz `products` jadvali ma'lumotini, misol uchun, statistika sahifasida chiqarishimiz kerak bo'lib qolsa va bu sahifada yetkazib beruvchi haqidagi ma'lumotlarni ham ko'rsatishimiz kerak bo'lsa, buning uchun avvalo, `products` va `suppliers` jadvallarini `INNER JOIN` bilan bog'lab olamiz.
+
+```bash
+SELECT product_name, suppliers.company_name, units_in_stock 
+FROM products
+INNER JOIN suppliers ON products.supplier_id = suppliers.supplier_id 
+ORDER BY units_in_stock DESC
+```
+
+<img src="images/lesson-2-1.png" alt="lesson-2-1" title="lesson-2-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+Yana, bir misol, mahsulotlarni kategoriya bo'yicha guruhlab, kategoriya nomi va shu kategoriyadagi mahsulotlarning narxlari yig'indisi ro'yxatini chiqarishimiz kerak:
+
+```bash
+SELECT categories.category_name, SUM(units_in_stock)
+FROM products
+INNER JOIN categories on products.category_id = categories.category_id 
+GROUP BY categories.category_name
+ORDER BY SUM(units_in_stock) DESC
+LIMIT 5;
+```
+
+<img src="images/lesson-2-2.png" alt="lesson-2-2" title="lesson-2-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Murakkabroq misol:
+
+```bash
+SELECT categories.category_name, SUM(unit_price * units_in_stock)
+FROM products
+INNER JOIN categories on products.category_id = categories.category_id 
+WHERE discontinued <> 1
+GROUP BY categories.category_name
+HAVING SUM(unit_price * units_in_stock) > 5000
+ORDER BY SUM(units_in_stock) DESC
+LIMIT 5;
+```
+
+Tovarlarining umumiy narxi 5000-dan yuqori bo'lgan 5 ta kategoriyani olish so'rovi.
+
+Misol. Endi ikkitadan ko'p jadvallarni bog'lab ko'raylik:
+
+```bash
+SELECT order_date, product_name, ship_country, unit_price, quantity, discount
+FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id 
+INNER JOIN products ON order_details.product_id = products.product_id;
+```
+
+Yuqoridagi so'rov `orders`, `order_details` va `products` jadvallarini bog'lab, ulardan berilgan maydonlarni olib berishi kerak. Lekin, bu so'rovni ishga tushirsak quyidagi xato kelib chiqadi:
+
+<img src="images/lesson-2-3.png" alt="lesson-2-3" title="lesson-2-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Xatoga qaraydigan bo'lsak, xatolik `unit_price` maydonini olishda chalkashlik paydo bo'lgani haqida aytilgan. Ya'ni, `unit_price` maydoni ham `order_details` jadvalida, ham `products` jadvalida mavjud va `SQL` qaysi jadvaldan bu maydonni olishni bilmay xatolik chiqarib beryapti.
+
+`SQL`-ga qaysi jadvalning `unit_price` maydonini olishini bildirish uchun esa, bu maydonnig jadvali nomini ham berishimiz kerak bo'ladi. Bunda yuqoridagi so'rov quyidagicha o'zgaradi:
+
+```bash
+SELECT order_date, product_name, ship_country, products.unit_price, quantity, discount
+FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id 
+INNER JOIN products ON order_details.product_id = products.product_id;
+```
+
+<img src="images/lesson-2-4.png" alt="lesson-2-4" title="lesson-2-4" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+
+`INNER JOIN` bilan xohlagancha jadvallarni bog'lab chiqarish mumkin.
