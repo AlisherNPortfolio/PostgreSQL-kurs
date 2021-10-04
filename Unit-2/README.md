@@ -404,3 +404,34 @@ WHERE ship_region IS NOT NULL;
 ```
 
 <img src="images/lesson-13-2.png" alt="lesson-13-2" title="lesson-13-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 14-dars. GROUP BY
+
+`SQL` so'rovlarining tuzilmasiga kiruvchi keyingisi - guruhlash bo'lib, u WHERE (filterlash) va ORDER BY (tartiblash) operatorlari orasida yotadi. Guruhlash GROUP BY operatorlari orqali amalga oshiriladi.
+
+Tushunish osonroq bo'lishi uchun misol ko'raylik. Bizga har bir davlatga to'g'ri keladigan va 50 kg-dan yuqori bo'lgan buyurtmalarning sonini topish vazifasi berildi. Bu vazifa, albatta, buyurtmalarni davlatlar bo'yicha guruhlash orqali amalga oshiriladi. Vazifa quyidagicha bajariladi:
+
+```bash
+SELECT ship_country, count(*) 
+FROM orders
+WHERE freight > 50
+GROUP BY ship_country 
+ORDER BY count(*)  DESC;
+```
+
+<img src="images/lesson-14-1.png" alt="lesson-14-1" title="lesson-14-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Natijadan ko'rsangiz, buyurtmalar davlatlar bo'yicha guruhlangan.
+
+Endi, har bir kategoriyadagi 
+
+mahsulotlarning umumiy narxini topaylik:
+
+```bash
+SELECT category_id, SUM(units_in_stock) 
+FROM products
+GROUP BY category_id 
+ORDER BY SUM(units_in_stock)  DESC;
+```
+
+<img src="images/lesson-14-2.png" alt="lesson-14-2" title="lesson-14-2" style="width:90%;height:90;margin:0 auto;display:block;">
