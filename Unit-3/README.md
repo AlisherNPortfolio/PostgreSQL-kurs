@@ -38,7 +38,7 @@ Yuqoridagi rasmdan ko'rib turganingizdek, `INNER JOIN`-dan farqi, natijaviy jadv
 
 Berilgan misolda, natija xuddi `INNER JOIN`-dagi bilan bir xil chiqib qolgan. Chunki, `books` jadvalidagi barcha qatorlar `publishers` jadvaliga bog'langan.
 
-`CROSS JOIN`.
+**CROSS JOIN**.
 
 Bu turdagi bog'lanish juda kam ham holatda ishlatiladi. Bu bog'lanishni keyinroq ko'rib chiqamiz. `CROSS JOIN`-da chap tomondagi jadvalning har bir qatorini o'ng tomondagi jadvalning har bir qatori bilan qo'shib chiqarib beradi.
 
