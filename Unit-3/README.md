@@ -14,15 +14,13 @@ Jadvallarning bir nechta usuli mavjud:
 * `CROSS JOIN` - kesishmali bog'lanish
 * `SELF JOIN` - o'ziga bog'lanish
 
-JOIN-lar bilan ishlashdan oldin chap va o'ng jadvallar nima ekanligini tushunib olaylik. Ikkita jadvalni birlashtirishda, shartli ravishda, 1-jadvalni 2-jadval bilan birlashtiramiz deymiz. Shu yerda 1-jadval chap tomondagi jadval, 2-si o'ng tomondagi jadval deyiladi. Jadvallarning joylashishi muhim hisoblanadi.
+`JOIN`-lar bilan ishlashdan oldin chap va o'ng jadvallar nima ekanligini tushunib olaylik. Ikkita jadvalni birlashtirishda, shartli ravishda, 1-jadvalni 2-jadval bilan birlashtiramiz deymiz. Shu yerda 1-jadval chap tomondagi jadval, 2-si o'ng tomondagi jadval deyiladi. Jadvallarning joylashishi muhim hisoblanadi.
 
 **INNER JOIN.**
 
 <img src="images/lesson-1-1.png" alt="lesson-1-1" title="lesson-1-1" style="width:90%;height:90;margin:0 auto;display:block;">
 
-
 Bu yerdagi `publishers` jadvali chap tomon jadvali deyiladi (chunki u 1-bo'lib kelgan), `books` jadvali esa o'ng tomon jadvali deyiladi. Bu ikki jadval orasida `INNER JOIN` qo'llanilsa, chap tomondagi jadvalning faqatgina o'ng tomondagi jadvalning `publisher_id` maydoniga mos kelgan qatorlari olinadi (bunda chap tomondagi jadvalning har bir qatoriga unga mos keluvchi o'ng tomondagi jadval ma'lumotlari qo'shiladi). Misol uchun, tepadagi rasmga qarasak, `books` jadvalidagi  1-qatorining `publisher_id`-si 1 ga teng, ya'ni, `books` jadvalining birinchi qatori `publishers` jadvalining 1-qatoriga bog'langan ma'lumot yangi jadvaldan joy olgan. Natijada, faqat `books` jadvalining `publisher_id` va `publishers` jadvalining `id` maydonlari bir xil bo'lgan ikkala jadval ma'lumotlari yangi jadvalda chiqadi.
-
 
 **LEFT OUTER JOIN**.
 
