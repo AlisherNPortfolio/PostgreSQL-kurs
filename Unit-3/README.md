@@ -233,3 +233,70 @@ ORDER BY manager DESC;
 ```
 
 Bu yerda maqsadga qarab `LEFT JOIN` o'rniga `INNER JOIN`-dan ham foydalanish mumkin.
+
+### 5-dars. USING va NATURAL JOIN
+
+Faraz qilaylik, quyidagicha katta hajmli so'rovimiz bor:
+
+```bash
+SELECT contact_name, company_name, phone, first_name, last_name, title,
+	   order_date, product_name, ship_country, products.unit_price, quantity, discount
+FROM orders
+JOIN order_details ON orders.order_id = order_details.order_id
+JOIN products ON order_details.product_id = products.product_id 
+JOIN customers ON orders.customer_id = customers.customer_id
+JOIN employees ON orders.employee_id = employees.employee_id 
+WHERE ship_country = 'USA';
+```
+
+Lekin, bu so'rov anchagina katta va o'qishga qiyin. Uni biroz qisqartiramiz. Qisqartirishni **USING** kalit so'zi orqali amalga oshiramiz.  So'rovga qarasangiz, bog'lanishda bir xildagi ustun nomlari qo'llanilgan. Bog'lovchi ustunlarni `USING` bilan ifodalaymiz:
+
+```bash
+SELECT contact_name, company_name, phone, first_name, last_name, title,
+	   order_date, product_name, ship_country, products.unit_price, quantity, discount
+FROM orders
+JOIN order_details USING(order_id)
+JOIN products USING(product_id)
+JOIN customers USING(customer_id)
+JOIN employees USING(employee_id)
+WHERE ship_country = 'USA';
+```
+
+> USING bilan bog'lashda bog'lanuvchi ustun nomlari bir xil bo'lishi kerak
+
+Bundan tashqari **NATURAL JOIN** bog'lanishi ham mavjud. Bu bog'lanish ham so'rovni ancha qisqa ko'rinishda yozishga yordam beradi:
+
+```bash
+SELECT order_id, customer_id, first_name, last_name, title
+FROM orders
+NATURAL JOIN employees;
+```
+
+`NATURAL JOIN`-ning sintaksisi:
+
+```bash
+SELECT select_list
+FROM T1
+NATURAL [INNER, LEFT, RIGHT] JOIN T2;
+```
+
+`NATURAL JOIN`-da ham ikkala jadvaldagi bog'lovchi ustun nomlari bir xil bo'lishi kerak.
+
+### 6-dars. AS
+
+Oldingi darslarda `COUNT`, `SUM` kabi agregat funksiyalardan foydalanganib natija chiqarganimizda ularga mos ustun nomi funksiya nomi bilan chiqariladi. Ko'pgina hollarda esa bunday ustunlarga o'zimizga kerakli nomni berishimiz kerak bo'ladi. Buning uchun esa maxsus `AS` kalit so'zidan foydalanamiz.
+
+```bash
+SELECT COUNT(*) AS employees_count
+FROM employees;
+```
+
+<img src="images/lesson-6-1.png" alt="lesson-6-1" title="lesson-6-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Lekin, post filter (HAVING) psevdonim nomlarni qo'llamaydi:
+
+<img src="images/lesson-6-2.png" alt="lesson-6-2" title="lesson-6-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Bu yerda psevdonim nom o'rniga agregat funksiyaning aynan o'zi ishlatilishi kerak:
+
+<img src="images/lesson-6-3.png" alt="lesson-6-3" title="lesson-6-3" style="width:90%;height:90;margin:0 auto;display:block;">
