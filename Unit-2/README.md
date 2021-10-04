@@ -277,7 +277,7 @@ ORDER BY country DESC, city DESC;
 
 ### 10-dars. MIN, MAX, AVG, SUM
 
-Bu darsda yozuvlardagi eng kichik (**MIN**), eng katta (**MAX**), o'rtacha (**AVG**) va umumiy yig'indi (**SUM**) qiymatlarni topuvchi funksiyalarni o'rganamiz.
+Bu darsda yozuvlardagi eng kichik (**MIN**), eng katta (**MAX**), o'rtacha (**AVG**) va umumiy yig'indi (**SUM**) qiymatlarni topuvchi funksiyalarni o'rganamiz. Bu funksiyalarni agregat funksiyalar deb ham atashadi.
 
 Bizga Londondan kelgan buyurtmalarning eng eskisini topish vazifasi berilgan bo'lsin. Bu vazifani **ORDER BY** yordamida ham bajarsak bo'ladi:
 
