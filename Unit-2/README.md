@@ -465,3 +465,79 @@ ORDER BY SUM(unit_price * units_in_stock) DESC;
 ```
 
 <img src="images/lesson-15-2.png" alt="lesson-15-2" title="lesson-15-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 16-dars. UNION, INTERSECT, EXCEPT
+
+Bu darsimizda `SQL`-dagi **UNION (birlashtirish)**, **INTERSECT (kesishish)** va **EXCEPT (tashqari)** operatorlarini ko'ramiz.
+
+`UNION` operatori.
+
+Vazifa: buyurtmachilar va ishchilar jadvallaridagi barcha davlatlarni chiqarish kerak. Bu qanday amalga oshiriladi? Chunki ular ikki xil jadvalda joylashgan bo'lsa:
+
+```bash
+SELECT country 
+FROM customers;
+
+SELECT country
+FROM employees;
+```
+
+Bu vazifa birlashtirish (`UNION`) orqali bajarilishi mumkin:
+
+```bash
+SELECT country 
+FROM customers
+UNION
+SELECT country
+FROM employees;
+```
+
+<img src="images/lesson-16-1.png" alt="lesson-16-1" title="lesson-16-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Ko'rib turganingizdek, davlatlar ro'yxatida hech biri takroriy chiqmagan. `UNION` operatori barcha takroriy ma'lumotlarni o'zi olib tashlaydi.
+
+Agar ikkala jadvalning barcha maydonlarini birlashtirib, davlatlarni takrorlanganlari bilan olmoqchi bo'lsak, `UNION ALL` operatoridan foydalanamiz:
+
+```bash
+SELECT country 
+FROM customers
+UNION ALL
+SELECT country
+FROM employees;
+```
+
+<img src="images/lesson-16-2.png" alt="lesson-16-2" title="lesson-16-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+`INTERSECT` operatori.
+
+Agar biz yetkazib beruvchilar (`suppliers`) jadvalidagi bilan bir xil davlatga ega bo'lgan buyurtmachilarni chiqarishimiz kerak bo'lsa, ya'ni, yuqoridagi ikkala jadvaldan davlatlari o'zaro kesishgan ma'lumotlarni olmoqchi bo'lsak, bunda `INTERSECT` operatoridan foydalanamiz:
+
+```bash
+SELECT country 
+FROM customers
+INTERSECT
+SELECT country
+FROM suppliers;
+```
+
+<img src="images/lesson-16-3.png" alt="lesson-16-3" title="lesson-16-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Natija jadvalda Spain, ya'ni, Ispaniyaning chiqishiga sabab, bu davlatda ham buyurtmachi, ham yetkazib beruvchi mavjud.
+
+`EXCEPT` operatori.
+
+Vazifa: buyurtmachilar bor bo'lgan, lekin yetkazib beruvchilari bo'lmagan davlatlarni topish kerak:
+
+```bash
+SELECT country 
+FROM customers
+EXCEPT
+SELECT country
+FROM suppliers;
+```
+
+<img src="images/lesson-16-4.png" alt="lesson-16-4" title="lesson-16-4" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Misol, uchun Argentinani oladigan bo'lsak, bu yerda buyurtmachilar bor, lekin yetkazib beruvchilar yo'q.
+
+Agar `EXCEPT ALL` bilan qo'llanilsa, takrorlangan davlatlar ham chiqadi.
