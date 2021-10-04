@@ -187,3 +187,49 @@ Mana shunday holatlarni `CROSS JOIN`-ga misol qilish mumkin.
 SELECT * FROM Meals 
 CROSS JOIN Drinks;
 ```
+
+### 4-dars. SELF JOIN
+
+`SELF JOIN`-dan iyerarxiya ko'rinishidagi ma'lumotlar bitta jadvalda saqlanganda ma'lumotlarni birlashtirib olishda ishlatiladi.
+
+Masalan, biror firmada bir qancha xodimlar ishlaydi. Firmadagi ba'zi xodimlar boshqa ba'zi xodimlarga bo'ysunadi, ya'ni, xodimlar boshqaruvi iyerarxiyasi mavjud. Ularning ma'lumotlari esa bitta `employees` jadvalida saqlanadi.
+
+```bash
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR (255) NOT NULL,
+    last_name VARCHAR (255) NOT NULL,
+    manager_id INT,
+    FOREIGN KEY (manager_id) 
+    REFERENCES employee (employee_id) 
+    ON DELETE CASCADE
+);
+
+INSERT INTO employees (
+    employee_id,
+    first_name,
+    last_name,
+    manager_id
+)
+VALUES
+    (1, 'Kamolov', 'Kamol', NULL),
+    (2, 'Salomov', 'Salom', 1),
+    (3, 'Alimov', 'Alim', 1),
+    (4, 'Halimov', 'Halim', 2),
+    (5, 'Jalilov', 'Jalil', 2),
+    (6, 'Shamilov', 'Shamil', 2),
+    (7, 'Zamirov', 'Zamir', 3),
+    (8, 'Damirov', 'Damir', 3);
+```
+
+Endi, bizga har bir xodimni u bo'ysunadigan boshqa xodim `id`-si bilan chiqarib berish vazifasi yuklatildi. Buni quyidagicha bajaramiz:
+
+```bash
+SELECT e.first_name || ' ' || e.last_name AS employee,
+	   e2.first_name || ' ' || e2.last_name AS manager
+FROM employees e
+LEFT JOIN employees e2 ON e2.employee_id = e.manager_id
+ORDER BY manager DESC;
+```
+
+Bu yerda maqsadga qarab `LEFT JOIN` o'rniga `INNER JOIN`-dan ham foydalanish mumkin.
