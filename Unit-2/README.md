@@ -407,7 +407,7 @@ WHERE ship_region IS NOT NULL;
 
 ### 14-dars. GROUP BY
 
-`SQL` so'rovlarining tuzilmasiga kiruvchi keyingisi - guruhlash bo'lib, u WHERE (filterlash) va ORDER BY (tartiblash) operatorlari orasida yotadi. Guruhlash GROUP BY operatorlari orqali amalga oshiriladi.
+`SQL` so'rovlarining tuzilmasiga kiruvchi keyingisi - guruhlash bo'lib, u `WHERE` (filterlash) va `ORDER BY` (tartiblash) operatorlari orasida yotadi. **Guruhlash** **GROUP BY** operatorlari orqali amalga oshiriladi.
 
 Tushunish osonroq bo'lishi uchun misol ko'raylik. Bizga har bir davlatga to'g'ri keladigan va 50 kg-dan yuqori bo'lgan buyurtmalarning sonini topish vazifasi berildi. Bu vazifa, albatta, buyurtmalarni davlatlar bo'yicha guruhlash orqali amalga oshiriladi. Vazifa quyidagicha bajariladi:
 
@@ -423,9 +423,7 @@ ORDER BY count(*)  DESC;
 
 Natijadan ko'rsangiz, buyurtmalar davlatlar bo'yicha guruhlangan.
 
-Endi, har bir kategoriyadagi 
-
-mahsulotlarning umumiy narxini topaylik:
+Endi, har bir kategoriyadagi mahsulotlarning umumiy narxini topaylik:
 
 ```bash
 SELECT category_id, SUM(units_in_stock) 
@@ -435,3 +433,35 @@ ORDER BY SUM(units_in_stock)  DESC;
 ```
 
 <img src="images/lesson-14-2.png" alt="lesson-14-2" title="lesson-14-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 15-dars. HAVING
+
+Oldinroq `WHERE` operatori bilan qanday qilib filter qilishni ko'rgan edik. Endi esa, so'rovda filterlash va guruhlash amalga oshirilganidan keyin, natijaviy so'rovda yana filter qo'llashni ko'ramiz. Bunda **HAVING** operatori qo'llaniladi. O'zi, aslida, `WHERE` ham, `HAVING` ham filterlash operatori hisoblanadi. Farqi, `WHERE` birlamchi filter bo'lsa, `HAVING` guruhlash amalga oshirilgandan keyin qilinadigan filter.
+
+Misol. Umumiy narxi biror summadan yuqori bo'lgan yoki biror kategoriyaga tegishli bo'lgan mahsulotlarning umumiy narxini hisoblashimiz kerak bo'lsin. Bunda, avval, barcha mahsulotlarni guruhlab, har bir guruhdagi mahsulot narxalari yig'indisini topamiz, so'ngra, ular orasidan kerakli kategoriyani yoki narxni filterlab olamiz.
+
+Narxi har bir kategoriyaga tegishli barcha mahsulotlarning umumiy narxi 5000-dan yuqori bo'lganlarini topamiz:
+
+```bash
+SELECT category_id, SUM(unit_price * units_in_stock) 
+FROM products
+WHERE discontinued <> 1
+GROUP BY category_id
+HAVING SUM(unit_price * units_in_stock) > 5000
+ORDER BY SUM(unit_price * units_in_stock) DESC;
+```
+
+<img src="images/lesson-15-1.png" alt="lesson-15-1" title="lesson-15-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Yoki har bir kategoriyaga tegishli barcha mahsulotlarning umumiy narxini topib, ulardan bitta kerakli kategoriyani tanlab olamiz:
+
+```bash
+SELECT category_id, SUM(unit_price * units_in_stock) 
+FROM products
+WHERE discontinued <> 1
+GROUP BY category_id
+HAVING category_id = 4
+ORDER BY SUM(unit_price * units_in_stock) DESC;
+```
+
+<img src="images/lesson-15-2.png" alt="lesson-15-2" title="lesson-15-2" style="width:90%;height:90;margin:0 auto;display:block;">
