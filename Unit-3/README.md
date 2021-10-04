@@ -46,6 +46,9 @@ Bu turdagi bog'lanish juda kam ham holatda ishlatiladi. Bu bog'lanishni keyinroq
 
 Ko'rib turganingizdek, `CROSS JOIN` bizga doim ham kerak bo'lavermaydi.
 
+<img src="images/lesson-1-5.jpg" alt="lesson-1-5" title="lesson-1-5" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
 ### 2-dars. INNER JOIN
 
 `INNER JOIN` haqida oldingi darsda ma'lumot berilgan edi. Bu darsda `INNER JOIN`-ga misol ko'ramiz.
@@ -121,3 +124,66 @@ INNER JOIN products ON order_details.product_id = products.product_id;
 
 
 `INNER JOIN` bilan xohlagancha jadvallarni bog'lab chiqarish mumkin.
+
+### 3-dars. LEFT, RIGHT JOIN
+
+`LEFT` va `RIGHT JOIN`-lar ko'p ishlatildigan bog'lanish turlaridan hisoblanadi.
+
+**LEFT JOIN.**
+
+`LEFT JOIN` bo'g'lanishi `INNER JOIN`-dan deyarli farq qilmaydi. Agar ikkala jadvaldagi bog'lovchi kalitlar o'zaro to'liq mos kelsa, ikkala bog'lanish ham bir xil natija beradi.
+
+Farqi, `LEFT JOIN`-da 1-jadvalning 2-jadval bilan mos kelmagan ma'lumotlari ham natijaviy jadvalda chiqadi, lekin 2-jadvaldan olinadigan ma'lumot qismi bo'sh turadi.
+
+<img src="images/lesson-3-1.png" alt="lesson-3-1" title="lesson-3-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+1-darsda `LEFT JOIN` haqida ma'lumot berilgan edi. Shu sababli tezda misol ko'rishga o'tamiz.
+
+Misol:
+
+```bash
+SELECT company_name, product_name
+FROM suppliers
+LEFT JOIN products ON suppliers.supplier_id = products.supplier_id;
+```
+
+`LEFT JOIN` so'rovi ham `INNER JOIN` bilan deyarli bir xilda yoziladi. Faqat, mos kelmagan ma'lumotlari ham natijaviy jadvalda chiqishi kerak bo'lgan jadval 1-bo'lib ishlatilishi kerak bo'ladi (`FROM` dan keyin yoziladigan jadval nomi).
+
+**RIGHT JOIN**.
+
+`RIGHT JOIN` bog'lanishi `LEFT JOIN` bilan bir xil bo'ladi. Farqi, `LEFT JOIN`-da 1-bo'lgan jadval `RIGHT JOIN`-da 2-jadval bo'ladi. `LEFT JOIN`-da keltirilgan misolni `RIGHT JOIN`-da yozamiz:
+
+```bash
+SELECT company_name, product_name
+FROM products
+RIGHT JOIN suppliers ON products.supplier_id = suppliers.supplier_id;
+```
+
+Bu so'rovda ham `LEFT JOIN`-dagisi bilan bir xildagi natija chiqadi.
+
+<img src="images/lesson-3-2.png" alt="lesson-3-2" title="lesson-3-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+
+**FULL JOIN**.
+
+`FULL JOIN` bog'lanishi `LEFT` va `RIGHT JOIN`-larning birlashmasi hisoblanadi. Ya'ni, jadvallarda mos tushgan qatorlar bitta qilib chiqariladi, ikkala jadvaldagi qolgan barcha ma'lumotlar shundayligicha natijaviy jadvalda chiqariladi. O'zaro mos kelmagan qatorlarning ma'lumot yo'q qismi `NULL` bilan chiqadi.
+
+<img src="images/lesson-3-3.png" alt="lesson-3-3" title="lesson-3-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+**CROSS JOIN**.
+
+`CROSS JOIN` deyarli ishlatilmaydi. Bu bog'lanishga misol qilib quyidagini keltirish mumkin:
+
+Aytaylik, biz kafega kirib nonushta buyurtma qilmoqchimiz. Stolga o'tirishimiz bilan menyuga qaraymiz va qaysi taom va ichimliklar kombinatsiyasi eng mazali bo'lishi haqida o'ylay boshlaymiz. Bizning miyamiz bu signalni olib, barcha ovqat va ichimliklar kombinatsiyasini ishlab chiqishni boshlaydi:
+
+<img src="images/lesson-3-4.png" alt="lesson-3-4" title="lesson-3-4" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Mana shunday holatlarni `CROSS JOIN`-ga misol qilish mumkin.
+
+```bash
+SELECT * FROM Meals 
+CROSS JOIN Drinks;
+```
