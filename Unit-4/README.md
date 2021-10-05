@@ -78,7 +78,7 @@ ORDER BY units_in_stock;
 
 ### 2-dars. Ost so'rovlar. WHERE EXISTS
 
-Ost-so'rovlarni o'rganishni davom ettiramiz. Bu darsda WHERE EXISTS tuzilmasini ost so'rovlarda ishlatishini o'rganamiz. Tuzilmaning ishlashi quyidagicha: agar ost-so'rovdan hech bo'lmaganda bitta qator qaytsa WHERE EXISTS tuzilmasi true qaytaradi. Bu yerda WHERE so'rovda filter vazifasida kelmaydi.
+Ost-so'rovlarni o'rganishni davom ettiramiz. Bu darsda **WHERE EXISTS** tuzilmasini ost so'rovlarda ishlatishini o'rganamiz. Tuzilmaning ishlashi quyidagicha: agar ost-so'rovdan hech bo'lmaganda bitta qator qaytsa `WHERE EXISTS` tuzilmasi true qaytaradi. Bu yerda `WHERE` so'rovda filter vazifasida kelmaydi.
 
 Misol. 50-dan 100-gacha og'irlikdagi buyurtma qilgan kompaniya va buyurtmachi nomini olaylik:
 
@@ -95,7 +95,7 @@ WHERE EXISTS (
 
 <img src="images/lesson-2-1.png" alt="lesson-2-1" title="lesson-2-1" style="width:90%;height:90;margin:0 auto;display:block;">
 
-Misol. '1995-02-01' va '1995-02-15' sanalari orasida buyurtma qilinmagan kompaniya va buyurtmachi nomini chiqarish:
+Misol. *'1995-02-01'* va *'1995-02-15'* sanalari orasida buyurtma qilinmagan kompaniya va buyurtmachi nomini chiqarish:
 
 ```bash
 SELECT company_name, contact_name 
@@ -123,7 +123,7 @@ WHERE NOT EXISTS (
 
 ### 3-dars. Ost-so'rovlar darsi davomi. ANY, ALL
 
-Misol. 40 tadan ko'p mahsulot buyurtma qilgan kompaniyalarni olish (kompaniyalar takrorlanmasdan chiqishi kerak). Buni JOIN bilan amalga oshiramiz:
+Misol. 40 tadan ko'p mahsulot buyurtma qilgan kompaniyalarni olish (kompaniyalar takrorlanmasdan chiqishi kerak). Buni `JOIN` bilan amalga oshiramiz:
 
 ```bash
 SELECT DISTINCT company_name
@@ -146,9 +146,9 @@ WHERE customer_id = ANY(
 );
 ```
 
-Bu yerda customers jadvalidan customer_id-si ost-so'rovdan olingan customer_id-lar jadvalidan xohlagan customer_id-ga teng bo'lgan qatorlarni chiqarish bajarilyapti. Ixtiyoriy customer_id-ni olib berishni ANY operatori bajaradi.
+Bu yerda `customers` jadvalidan `customer_id`-si ost-so'rovdan olingan `customer_id`-lar jadvalidan xohlagan `customer_id`-ga teng bo'lgan qatorlarni chiqarish bajarilyapti. Ixtiyoriy `customer_id`-ni olib berishni `ANY` operatori bajaradi.
 
-Bu so'rovni quyidagi so'rov bilan almashtirish mumkin. Farqi, ost-so'rovdan olinadigan customer_id-lar statik beriladi:
+Bu so'rovni quyidagi so'rov bilan almashtirish mumkin. Farqi, ost-so'rovdan olinadigan `customer_id`-lar statik beriladi:
 
 ```bash
 SELECT DISTINCT company_name
@@ -183,4 +183,4 @@ WHERE quantity > ALL(
 ORDER BY quantity 
 ```
 
-Bu yerda ALL operatori ost-so'rovdan chiqadigan barcha o'rtacha sonlar ro'yxatini filterga olib beradi.
+Bu yerda `ALL` operatori ost-so'rovdan chiqadigan barcha o'rtacha sonlar ro'yxatini filterga olib beradi.
