@@ -75,3 +75,48 @@ WHERE units_in_stock > (
 )
 ORDER BY units_in_stock;
 ```
+
+### 2-dars. WHERE EXISTS
+
+Ost-so'rovlarni o'rganishni davom ettiramiz. Bu darsda WHERE EXISTS tuzilmasini ost so'rovlarda ishlatishini o'rganamiz. Tuzilmaning ishlashi quyidagicha: agar ost-so'rovdan hech bo'lmaganda bitta qator qaytsa WHERE EXISTS tuzilmasi true qaytaradi. Bu yerda WHERE so'rovda filter vazifasida kelmaydi.
+
+Misol. 50-dan 100-gacha og'irlikdagi buyurtma qilgan kompaniya va buyurtmachi nomini olaylik:
+
+```bash
+SELECT company_name, contact_name 
+FROM customers
+WHERE EXISTS (
+	SELECT customer_id 
+	FROM orders
+	WHERE customer_id = customers.customer_id 
+	AND freight BETWEEN 50 AND 100
+);
+```
+
+<img src="images/lesson-2-1.png" alt="lesson-2-1" title="lesson-2-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Misol. '1995-02-01' va '1995-02-15' sanalari orasida buyurtma qilinmagan kompaniya va buyurtmachi nomini chiqarish:
+
+```bash
+SELECT company_name, contact_name 
+FROM customers
+WHERE NOT EXISTS (
+	SELECT customer_id 
+	FROM orders
+	WHERE customer_id = customers.customer_id 
+	AND order_date BETWEEN '1995-02-01' AND '1995-02-15'
+);
+```
+
+Misol.
+
+```bash
+SELECT product_name
+FROM products
+WHERE NOT EXISTS (
+	SELECT orders.order_id FROM orders
+	JOIN order_details USING(order_id)
+	WHERE order_details.product_id = product_id 
+	AND order_date BETWEEN '1995-02-01' AND '1995-02-15'
+)
+```
