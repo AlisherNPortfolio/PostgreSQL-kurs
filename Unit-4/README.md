@@ -76,7 +76,7 @@ WHERE units_in_stock > (
 ORDER BY units_in_stock;
 ```
 
-### 2-dars. WHERE EXISTS
+### 2-dars. Ost so'rovlar. WHERE EXISTS
 
 Ost-so'rovlarni o'rganishni davom ettiramiz. Bu darsda WHERE EXISTS tuzilmasini ost so'rovlarda ishlatishini o'rganamiz. Tuzilmaning ishlashi quyidagicha: agar ost-so'rovdan hech bo'lmaganda bitta qator qaytsa WHERE EXISTS tuzilmasi true qaytaradi. Bu yerda WHERE so'rovda filter vazifasida kelmaydi.
 
@@ -120,3 +120,67 @@ WHERE NOT EXISTS (
 	AND order_date BETWEEN '1995-02-01' AND '1995-02-15'
 )
 ```
+
+### 3-dars. Ost-so'rovlar darsi davomi. ANY, ALL
+
+Misol. 40 tadan ko'p mahsulot buyurtma qilgan kompaniyalarni olish (kompaniyalar takrorlanmasdan chiqishi kerak). Buni JOIN bilan amalga oshiramiz:
+
+```bash
+SELECT DISTINCT company_name
+FROM customers
+JOIN orders USING(customer_id)
+JOIN order_details USING(order_id)
+WHERE quantity > 40;
+```
+
+Shu bilan birga ost-so'rov yordamida qilsa ham bo'ladi:
+
+```bash
+SELECT DISTINCT company_name
+FROM customers
+WHERE customer_id = ANY(
+	SELECT DISTINCT customer_id
+	FROM orders
+	JOIN order_details USING(order_id)
+	WHERE quantity > 40
+);
+```
+
+Bu yerda customers jadvalidan customer_id-si ost-so'rovdan olingan customer_id-lar jadvalidan xohlagan customer_id-ga teng bo'lgan qatorlarni chiqarish bajarilyapti. Ixtiyoriy customer_id-ni olib berishni ANY operatori bajaradi.
+
+Bu so'rovni quyidagi so'rov bilan almashtirish mumkin. Farqi, ost-so'rovdan olinadigan customer_id-lar statik beriladi:
+
+```bash
+SELECT DISTINCT company_name
+FROM customers
+WHERE customer_id IN ('OLDWO', 'WARTH', 'QUEEN', 'ANTON', 'RATTC', 'FRANK', 'FAMIA');
+```
+
+Misol. Soni buyurtma qilingan mahsulotlarning o'rtacha sonidan ko'p bo'lgan mahsulotlarni chiqarish:
+
+```bash
+SELECT DISTINCT product_name, quantity
+FROM products
+JOIN order_details USING(product_id)
+WHERE quantity > (
+	SELECT AVG(quantity) 
+	FROM order_details
+)
+ORDER BY quantity ASC;
+```
+
+Misol. Buyurtma qilingan har bir mahsulot turining o'rtacha sonlaridan ham katta bo'lgan mahsulotlar sonini olish:
+
+```bash
+SELECT DISTINCT product_name, quantity
+FROM products
+JOIN order_details USING(product_id)
+WHERE quantity > ALL(
+	SELECT AVG(quantity) 
+	FROM order_details
+	GROUP BY product_id
+)
+ORDER BY quantity 
+```
+
+Bu yerda ALL operatori ost-so'rovdan chiqadigan barcha o'rtacha sonlar ro'yxatini filterga olib beradi.
