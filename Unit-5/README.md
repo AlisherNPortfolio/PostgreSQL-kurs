@@ -333,3 +333,50 @@ values ('test', 'test_isbn', 1, -1);
 ```
 
 <img src="images/lesson-4-1.png" alt="lesson-4-1" title="lesson-4-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+### 5-dars. DEFAULT
+
+**DEFAULT** checklovi yangi kiritilayotgan yozuvning maydoniga odatiy(`default`) qiymatni beradi. `DEFAULT` cheklovini cheklov ham deb bo'lmaydi. Chunki u hech narsani cheklamaydi, balki, yangi kiritilayotgan yozuvda biror maydonga qiymat berilmagan bo'lsa, shu maydonga oldindan berib qo'yilgan odatiy qiymatni o'rnatadi.
+
+Misol. Avval `customer` nomli jadval ochib olamiz:
+
+```bash
+create table customer
+(
+	customer_id serial,
+	full_name text,
+	status varchar(15) default 'doimiy',
+
+	constraint pk_customers_customer_id_key primary key (customer_id),
+	constraint chk_customers_status check (status = 'doimiy' or status = 'yangi')
+);
+```
+
+Bu yerda `customers` jadvalidagi `status` ustuniga `DEFAULT` cheklovini o'rnatdik va odatiy qiymat qilib `'doimiy'` so'zini berdik. Bu degani, agar `customers` jadvaliga yangi yozuv qo'shishda `status` maydoniga qiymat berilmasa, tizim unga `'doimiy'` so'zini qiymat qilib beradi.
+
+Bundan tashqari, `CHECK` cheklovi bilan status maydoniga faqat ikkita qiymat qilishi ta'minlanyapti.
+
+Endi, jadval ustuniga berilgan `DEFAULT` cheklovining ishlashini tekshirib ko'ramiz. `customers` jadvaliga quyidagicha yozuv qo'shaylik:
+
+```bash
+insert into customers (full_name)
+values ('Salom');
+```
+
+Ko'rib turganingzidek, `status` maydoniga hech qanday qiymat bermadik. Kiritilgan ma'lumotni olib ko'rsak, `DEFAULT` bilan odatiy qilib berilgan so'z `status` maydoniga saqlanganiga ko'ramiz:
+
+<img src="images/lesson-5-1.png" alt="lesson-5-1" title="lesson-5-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+`DEFAULT` cheklovini jadvaldan quyidagi so'rov bilan o'chirib tashlaymiz:
+
+```bash
+alter table customers 
+alter column status drop default;
+```
+
+Mavjud jadvalning ustuniga `DEFAULT` checklovini o'rnatish:
+
+```bash
+alter table jadval_nomi 
+alter column ustun_nomi set default 'qiymat';
+```
