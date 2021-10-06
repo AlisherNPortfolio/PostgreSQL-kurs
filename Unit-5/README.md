@@ -313,3 +313,23 @@ create table books
 alter table books 
 drop constraint FK_books_publisher_id_key;
 ```
+
+### 4-dars. CHECK
+
+CHECK cheklovi jadval ustuniga berilayotgan qiymat intervaliga cheklov o'rnatadi. Agar jadvalning biror ustuniga CHEKC cheklovi berilgan bo'lsa, u holda shu ustun maydoni faqatgina ma'lum qiymatlarnigina qabul qiladi. Agar, ushbu cheklov jadvalning o'ziga berilgan bo'lsa, qatordagi belgilangan ustunlar maydonlariga cheklov o'rnatiladi.
+
+Misol. Oldingi darsimizda ko'rgan misolimizdagi books jadvaliga yangi price nomli ustun qo'shaylik. Bu ustun faqatgina 0 dan katta bo'lgan qiymatlarni qabul qila olsin:
+
+```bash
+alter table books 
+add column price decimal constraint chk_book_price check (price > 0);
+```
+
+Endi, agar books jadvaliga yangi ma'lumot kiritishda price maydoniga 0 dan kichik qiymat beradigan bo'lsak, tizim berilgan cheklovning buzilgani haqida xatolik chiqarib beradi:
+
+```bash
+insert into books (title, isbn, publisher_id, price)
+values ('test', 'test_isbn', 1, -1);
+```
+
+<img src="images/lesson-4-1.png" alt="lesson-4-1" title="lesson-4-1" style="width:90%;height:90;margin:0 auto;display:block;">
