@@ -168,6 +168,8 @@ create table chair
 
 Ularning farqi, jadvalda `PRIMARY KEY` faqatgina bitta bo'lishi mumkin bo'lsa, `UNIQUE NOT NULL` esa bir nechta bo'lishi mumkin.
 
+> Yuqoridagi so'rovda berilgan `NOT NULL` ifodasi ham cheklov hisoblanadi. U o'zi berilayotgan ustunga `NULL` qiymati berib bo'lmasligini bildiriadi. Bu cheklovni jadvalda bir necha marotaba ham ishlatish mumkin.
+
 `PRIMARY KEY`-dan foydalanishdan maqsad jadvalda tashqi kalit (`foreign key`)larni bog'lash hisoblanadi.
 
 Umumiy qilib aytganda, odatda, `PRIMARY KEY`-dan jadvalda `UNIQUE` va `NOT NULL` bo'lgan, hamda `autoincrement` (qiymatni avto-oshishi) bo'lgan jadval identifikatsiyasini e'lon qilish uchun ishlatiladigan maydonga beriladi.
