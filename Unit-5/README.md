@@ -212,3 +212,102 @@ Jadvalga `PRIMARY KEY` o'rnatish:
 alter table chair
 add primary key (chair_id);
 ```
+
+### 3-dars. FOREIGN KEY
+
+**FOREIGN KEY** biror jadvaldagi bitta maydonni boshqa jadvaldagi `PRIMARY KEY` chekloviga ega maydonga havola bilan bog'laydi. `SQL`-da `FOREIGN KEY` cheklovi boshqa `SQL` amallariga jadvallar orasidagi havolali bog'lanishlarni uzishga yo'l qo'ymaydi.
+
+`FOREIGN KEY` o'rnatilgan jadval **farzand jadval (child table)**, u bog'langan `PRIMARY KEY`-li jadval esa **ota jadval (parent table)** deyiladi.
+
+Endi misol ko'raylik. Faraz qilaylik, `publishers` va `books` jadvallarimiz bor bo'lib, `books` jadvali `publishers` jadvaliga `publisher_id` maydoni orqali bog'lanadi:
+
+```bash
+create table publishers
+(
+	publisher_id serial,
+	publisher_name varchar(128) not null,
+	address text,
+
+	constraint pk_publishers_publisher_id primary key (publisher_id)
+);
+
+create table books
+(
+	book_id serial,
+	title text not null,
+	isbn varchar (32) not null,
+	publisher_id int,
+
+	constraint pk_books_book_id primary key (book_id)
+);
+```
+
+So'rovda ko'rganingizdek, `publisher_id` `FOREIGN KEY`-siz e'lon qilingan. Bu degani agar `books` jadvalidagi `publisher_id` maydoniga `publishers` jadvalidagi biror qatorning `publisher_id` maydoni qiymati yozilib, shu jadvalga bog'lansa, bu bog'lanish faqatgina mantiqiy bog'lanish bo'lib qoladi. Ya'ni, biz `books` jadvalidagi biror qatorning `publisher_id` maydoniga yozilgan qiymatga qarab turibgina qator shu qiymatga mos keluvchi `publishers` jadvalidagi qatorga bog'langan deb aytishimiz mumkin. Lekin, bunda ular orasida hech qanday bog'lovchi havola mavjud bo'lmaydi. Agar `books` jadvalida `publishers` jadvali qatorlariga bog'liq bo'lgan ma'lumot bo'lsa ham, `publishers` jadvalidan biror bir qator yoki qatorlarni o'chirsak, ular hech qanday xatoliksiz o'chib ketadi. Bunga sabab esa, albatta, ularning `FOREIGN KEY` yordamida bog'lanmaganligi bo'ladi.
+
+Buni misolda ko'ramiz. Avval, jadvallarni ma'lumot bilan to'ldiramiz:
+
+```bash
+insert into publishers (publisher_name, address)
+values 
+('G''afur G''ulom nashriyoti', 'Kichik halqa yo''li'),
+('Sharq nashriyoti', 'Katta halqa yo''li'),
+('Hilol nashr', 'Farg''ona yo''li ko''chasi');
+
+insert into books (title, isbn, publisher_id)
+values 
+('O''tkan kunlar', '123789456', 1),
+('Mehrobdan chayon', '741963852', 1),
+('Kichkina shahzoda', '159753456', 2),
+('Kapitan Grant bolalari', '987654321', 2),
+('Baxtiyor oila', '369874125', 3),
+('Tafsiri hilol', '521478963', 3);
+```
+
+`books` jadvalini ochib ko'radigan bo'lsak, `publisher_id` ustunida hech qanday havola yo'q:
+
+<img src="images/lesson-3-1.png" alt="lesson-3-1" title="lesson-3-1" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Agar `publishers` jadvalini o'chiradigan bo'lsak yoki uni tozalab tashlaydigan bo'lsak ham hech qanday xatoliksiz o'chib ketadi:
+
+<img src="images/lesson-3-2.png" alt="lesson-3-2" title="lesson-3-2" style="width:90%;height:90;margin:0 auto;display:block;">
+
+Lekin, `books` jadvalida `publisher` jadvaliga bog'liq bo'lgan qatorlar qoladi. Bu esa keyinchalik noto'g'ri ma'lumotlar olinishiga sabab bo'ladi. Buni oldini olish uchun `FOREIGN KEY`-dan foydalanamiz. Avval, `books` jadvalining ma'lumotlarini ham tozalab olib, keyin uning `publisher_id` ustuniga `FOREIGN KEY` cheklovini o'rnatamiz:
+
+```bash
+truncate table books;
+
+alter table books 
+add constraint FK_books foreign key(publisher_id) references publishers(publisher_id);
+```
+
+<img src="images/lesson-3-3.png" alt="lesson-3-3" title="lesson-3-3" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+`books` jadvalini ham tozalab olishimizdan maqsad, hozirda `publishers` jadvali bo'shligi sababli, `books` jadvalining `publisher_id` ustuni yo'q ma'lumotlarga bog'lana olmay, xatolik kelib chiqmasligi uchun qilinadi.
+
+Endi ikkala jadvalga ham ma'lumotlarni qaytadan kiritib, `books` jadvali ma'lumotlariga qaraydigan bo'lsak, `publisher_id` ustunida havolani ko'rishimiz mumkin bo'ladi:
+
+<img src="images/lesson-3-4.png" alt="lesson-3-4" title="lesson-3-4" style="width:90%;height:90;margin:0 auto;display:block;">
+
+
+Jadvalni yaratish paytida esa `FOREIGN KEY` cheklovi quyidagicha beriladi:
+
+```bash
+create table books
+(
+	book_id serial,
+	title text not null,
+	isbn varchar (32) not null,
+	publisher_id int,
+
+	constraint pk_books_book_id primary key (book_id),
+	constraint FK_books_publisher_id_key foreign key (publisher_id) references publishers(publisher_id)
+);
+```
+
+`FOREIGN KEY`-ni o'chirish esa quyidagicha bajariladi:
+
+```bash
+alter table books 
+drop constraint FK_books_publisher_id_key;
+```
